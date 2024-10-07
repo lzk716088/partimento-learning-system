@@ -20,8 +20,68 @@ var newSvg = `
   <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`;
 var orgSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>`;
 var btnstate=0;
+$('#button1').click(function() {
 
-// 添加點擊事件監聽器
+});
+// 獲取 JSON 數據的函數
+async function fetchData() {
+  try {
+    const response = await fetch('../json/practice_data.json');
+    return await response.json();
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // 把錯誤拋出以便在調用處捕獲
+  }
+}
+$('#button1').click(async function() {
+  try {
+    const data = await fetchData(); // 獲取數據
+    if (btnstate === 1) {
+        dataglobal = data;
+        dataindex = dataindex <= 0 ? 7 : dataindex - 1; // 更新 index
+        playexam(data, dataindex);
+        console.log(`${data} ${dataindex}`);
+    }
+} catch (error) {
+    // 錯誤處理已在 fetchData 中進行
+}
+});
+
+$('#button2').click(async function() {
+  try {
+    const data = await fetchData(); // 獲取數據
+    dataglobal = data;
+    dataindex = 0;
+
+    if (btnstate === 0) {
+        button2.innerHTML = newSvg;
+        btnstate = 1;
+        playexam(data, dataindex);
+    } else {
+        button2.innerHTML = orgSvg;
+        btnstate = 0;
+        stopexam();
+    }
+    } catch (error) {
+        // 錯誤處理已在 fetchData 中進行
+    }
+});
+
+$('#button3').click(async function() {
+  try {
+    const data = await fetchData(); // 獲取數據
+    if (btnstate === 1) {
+        dataglobal = data;
+        dataindex = dataindex >= 7 ? 0 : dataindex + 1; // 更新 index
+        playexam(data, dataindex);
+        console.log(`${data} ${dataindex}`);
+    }
+    } catch (error) {
+        // 錯誤處理已在 fetchData 中進行
+    }
+});
+// 按鈕一：上一個
+/*
 button1.addEventListener("click", function() {
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
@@ -38,7 +98,7 @@ button1.addEventListener("click", function() {
         console.error('Error:', error);
     });
 });
-
+// 按鈕二：播放/停止
 button2.addEventListener("click", function() {
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
@@ -63,7 +123,7 @@ button2.addEventListener("click", function() {
         console.error('Error:', error);
     });
 });
-
+// 按鈕三：下一個
 button3.addEventListener("click", function() {
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
@@ -80,7 +140,7 @@ button3.addEventListener("click", function() {
         console.error('Error:', error);
     });
 });
-
+*/
 function updateImage(selectedValue){
   var image = document.getElementById('Image');
   var abc =`M: 4/4\n`+`L: 1/2\n`+`K: C\n`;
