@@ -18,10 +18,12 @@ $(document).ready(function() {
       }
       $('.key').mousedown(function() {
         playNote(this.id);
+        console.log(`${this.id} down.`);
         });
 
     $('.key').mouseup(function() {
         stopNote(this.id);
+        console.log(`${this.id} up.`);
     });
   }
   
