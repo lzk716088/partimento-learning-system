@@ -24,6 +24,7 @@ $('#button1').click(function() {
 
 });
 // 獲取 JSON 數據的函數
+/*
 async function fetchData() {
   try {
     const response = await fetch('../json/practice_data.json');
@@ -82,9 +83,10 @@ $('#rightButton').click(async function() {
         // 錯誤處理已在 fetchData 中進行
     }
 });
+*/
 // 按鈕一：上一個
-/*
-button1.addEventListener("click", function() {
+
+$('#leftButton').click(async function() {
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
     .then(data => {
@@ -101,7 +103,7 @@ button1.addEventListener("click", function() {
     });
 });
 // 按鈕二：播放/停止
-button2.addEventListener("click", function() {
+$('#showDataButton').click(async function() {
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
     .then(data => {
@@ -126,7 +128,7 @@ button2.addEventListener("click", function() {
     });
 });
 // 按鈕三：下一個
-button3.addEventListener("click", function() {
+$('#rightButton').click(async function() {
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
     .then(data => {
@@ -142,7 +144,7 @@ button3.addEventListener("click", function() {
         console.error('Error:', error);
     });
 });
-*/
+
 function stopexam(){
   for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
