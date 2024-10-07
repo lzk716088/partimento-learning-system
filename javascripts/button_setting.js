@@ -33,7 +33,7 @@ async function fetchData() {
     throw error; // 把錯誤拋出以便在調用處捕獲
   }
 }
-$('#button1').click(async function() {
+$('#leftButton').click(async function() {
   try {
     const data = await fetchData(); // 獲取數據
     
@@ -48,10 +48,10 @@ $('#button1').click(async function() {
 }
 });
 
-$('#button2').click(async function() {
+$('#showDataButton').click(async function() {
   try {
     const data = await fetchData(); // 獲取數據
-    console.log(data);
+    console.log
     dataglobal = data;
     dataindex = 0;
 
@@ -69,7 +69,7 @@ $('#button2').click(async function() {
     }
 });
 
-$('#button3').click(async function() {
+$('#rightButton').click(async function() {
   try {
     const data = await fetchData(); // 獲取數據
     if (btnstate === 1) {
