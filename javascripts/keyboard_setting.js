@@ -1,4 +1,6 @@
 
+var soundEnabled = true;
+var ismousedown = false;
 $(document).ready(function() {
     //產生琴鍵
     var kbs = '';
@@ -6,32 +8,29 @@ $(document).ready(function() {
     var mar = 30;
     var c = 0;
     
-    var soundEnabled = true;
-    var ismousedown = false;
+    
     for (var i = minkeynum; i <= maxkeynum; i++) {
       if (i % 12 == 1 || i % 12 == 3 || i % 12 == 6 || i % 12 == 8 || i % 12 == 10) {
-          kbs += `<div id="key${i}" class="black_key key" style="margin-left:${mar}px"></div>`
+          kbs += `<div id="key${i}" class="black_key keyBtn" style="margin-left:${mar}px"></div>`
               mar+= m[c]
               c=(c+1)%m.length
       } else {
-          kbs+=`<div id="key${i}" class="white_key key"></div>`
+          kbs+=`<div id="key${i}" class="white_key keyBtn"></div>`
       }
       
   }
   
     $('#keyboardContainer').html(kbs);
 
-    $('.key').mousedown(function() {
+    $('.keyBtn').mousedown(function() {
+        playNote(this);
         
-            playNote(this.id);
-            console.log(`${this.id} down.`);
-        });
+    });
 
-        $('.key').mouseup(function() {
-            stopNote(this.id);
-            console.log(`${this.id} up.`);
-        });
-        });
+    $('.keyBtn').mouseup(function() {
+        stopNote(this);
+    });
+});
 
 function mute(){
     soundEnabled = !soundEnabled; // 切换声音状态
@@ -43,27 +42,6 @@ function mute(){
     }
 }
 
-function playNote(senderDiv) {
-    ismousedown = true;
-    var key = senderDiv.id.substring(3);
-    key = parseInt(key);
-    if (soundEnabled){
-    if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
-            currentAudio = new Audio(`../88-keys/${key}.wav`);
-            currentAudio.volume = 0.6;
-            currentAudio.play();
-    }
-    console.log(Scale);
-    document.getElementById(senderDiv.id).style.backgroundColor = "blue";
-    if (Scale == "Rule of Octave Ascending") keys.push(key);
-    else if (Scale == "Rule of Octave Descending") keys.push(key);
-    var noteOnMsg = [0x90, key, 96];
-    currentOutput.send(noteOnMsg);
-    console.log(keys)
-}
 function fadeOutAudio(audio, duration) {
     const fadeSteps = 50; // 将淡出分为100步
     const fadeInterval = duration / fadeSteps; // 每步间隔时间
@@ -82,40 +60,119 @@ function fadeOutAudio(audio, duration) {
         }
     }, fadeInterval);
 }
+
+function playNote(senderDiv) {
+    ismousedown = true;
+    var key = parseInt(senderDiv.id.substring(3));
+    if (soundEnabled){
+    if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio(`../88-keys/${key}.wav`);
+            currentAudio.volume = 0.6;
+            currentAudio.play();
+    }
+    document.getElementById(senderDiv.id).style.backgroundColor = "blue";
+    if (Scale == "Rule of Octave Ascending") keys.push(key);
+    else if (Scale == "Rule of Octave Descending") keys.push(key);
+    try{
+        var noteOnMsg = [0x90, key, 96];
+        currentOutput.send(noteOnMsg);
+    }
+    catch (error){
+        console.log("Cannot read MIDI Output.");
+    }
+    
+    console.log(keys)
+}
+
 function stopNote(senderDiv) { 
     ismousedown = false;
     //senderDiv  = key{num}
-    var key = senderDiv.id.substring(3);
-    var noteOffMsg = [0x80, key, 0];
-    currentOutput.send(noteOffMsg);
+    var key = parseInt(senderDiv.id.substring(3));
+    
+    
     if (currentAudio) {
             fadeOutAudio(currentAudio, 100)
         }
-    if (isblackkey(key)) document.getElementById(senderDiv.id).style.backgroundColor = "black";
-    else document.getElementById(senderDiv.id).style.backgroundColor = "ivory";
-    for (let i=0;i<keys.length;i++){
-    let note = keys[i];
-    var noteOnMsg = [0x90, note, 96];
-    currentOutput.send(noteOnMsg);
-    if (isblackkey(note)){
-        document.getElementById(keys[i]).style.backgroundColor = "black";
-        document.getElementById(keys[i]).querySelector('.number_b').textContent = '';
+    if (isblackkey(key)) $(`#${senderDiv.id}`).css('background-color' , 'black');
+    else $(`#${senderDiv.id}`).css('background-color' , 'ivory');
+    for (element in keys){
+        if (isblackkey(key)) $(`#${senderDiv.id}`).css('background-color' , 'black');
+        else  $(`#${senderDiv.id}`).css('background-color' , 'ivory');
     }
-    else
-    {
-        document.getElementById(keys[i]).style.backgroundColor = "ivory";
-        document.getElementById(keys[i]).querySelector('.number').textContent = '';
+    try {
+        var noteOffMsg = [0x80, key, 0];
+        currentOutput.send(noteOffMsg);
+        
+        for (let i=0;i<keys.length;i++){
+            let note = keys[i];
+            var noteOnMsg = [0x90, note, 96];
+            currentOutput.send(noteOnMsg);
+        }
+    } catch{
     }
-    }
+    
     keys=[]
 }
-function handleMouseEnter(keyDiv) {
-    if (ismousedown) {
-        playNote(keyDiv);
+function playNoteMIDI(notenum) {
+    var key = parseInt(notenum);
+    keys.push(key);
+    document.getElementById(`key${key}`).style.backgroundColor = "blue";
+    var noteOnMsg = [0x90, key, 96];
+    currentOutput.send(noteOnMsg);
+    console.log(keys);
+  }
+
+  function stopNoteMIDI(notenum) { 
+    try{
+    if (twoarray()) {
+      if (dataindex <7) dataindex++;
+      else dataindex=0;
+      playexam(dataglobal , dataindex);
+      console.log(dataglobal,dataindex);
     }
-}
-function handleMouseLeave(keyDiv) {
-    if (ismousedown) {
-        stopNote(keyDiv);
+    }catch{}
+  
+    var key = notenum;
+    var noteOffMsg = [0x80, key, 0];
+    currentOutput.send(noteOffMsg);
+  
+    try{
+        if (!twoarray()&& nowexam.includes(key)) {
+        document.getElementById(`key${key}`).style.backgroundColor = "red";
+      } 
+      else if (isblackkey(key)) {
+          document.getElementById(`key${key}`).style.backgroundColor = "black";
+      } else {
+          document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+      }
+    }catch(error){
+      if (isblackkey(key)) {
+          document.getElementById(`key${key}`).style.backgroundColor = "black";
+      } else {
+          document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+      }
+  
     }
-}
+    /*if (isblackkey(key)) document.getElementById(`key${key}`).style.backgroundColor = "black";
+    else document.getElementById(`key${key}`).style.backgroundColor = "ivory";*/
+    /*for (let i=0;i<keys.length;i++){
+      //let note = keys[i];
+      if (isblackkey(keys[i])){
+        document.getElementById(keys[i]).style.backgroundColor = "black";
+        document.getElementById(keys[i]).querySelector('.number_b').textContent = '';
+      }
+      else
+      {
+        document.getElementById(keys[i]).style.backgroundColor = "ivory";
+        document.getElementById(keys[i]).querySelector('.number').textContent = '';
+      }
+    }*/
+    const index = keys.indexOf(notenum);
+    if (index > -1) { // only splice array when item is found
+      keys.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    console.log(keys);
+  }

@@ -306,57 +306,7 @@ function stopNote(senderDiv) {
   keys=[]
 }
 
-function stopNoteMIDI(notenum) { 
-  try{
-  if (twoarray()) {
-    if (dataindex <7) dataindex++;
-    else dataindex=0;
-    playexam(dataglobal , dataindex);
-    console.log(dataglobal,dataindex);
-  }
-  }catch{}
 
-  var key = notenum;
-  var noteOffMsg = [0x80, key, 0];
-  currentOutput.send(noteOffMsg);
-
-  try{
-      if (!twoarray()&& nowexam.includes(key)) {
-      document.getElementById(`key${key}`).style.backgroundColor = "red";
-    } 
-    else if (isblackkey(key)) {
-        document.getElementById(`key${key}`).style.backgroundColor = "black";
-    } else {
-        document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-    }
-  }catch(error){
-    if (isblackkey(key)) {
-        document.getElementById(`key${key}`).style.backgroundColor = "black";
-    } else {
-        document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-    }
-
-  }
-  /*if (isblackkey(key)) document.getElementById(`key${key}`).style.backgroundColor = "black";
-  else document.getElementById(`key${key}`).style.backgroundColor = "ivory";*/
-  /*for (let i=0;i<keys.length;i++){
-    //let note = keys[i];
-    if (isblackkey(keys[i])){
-      document.getElementById(keys[i]).style.backgroundColor = "black";
-      document.getElementById(keys[i]).querySelector('.number_b').textContent = '';
-    }
-    else
-    {
-      document.getElementById(keys[i]).style.backgroundColor = "ivory";
-      document.getElementById(keys[i]).querySelector('.number').textContent = '';
-    }
-  }*/
-  const index = keys.indexOf(notenum);
-  if (index > -1) { // only splice array when item is found
-    keys.splice(index, 1); // 2nd parameter means remove one item only
-  }
-  console.log(keys);
-}
 function modulation(){
   m = 0
   if (selectedKey == "C")  m=0;

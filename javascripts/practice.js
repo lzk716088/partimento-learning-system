@@ -286,6 +286,7 @@ function pushdescending(key){
   console.log(keys);
 } 
 var currentAudio=null;
+/*
 function playNote(senderDiv) {
   var key = senderDiv.id.substring(3);
   key = parseInt(key);
@@ -304,7 +305,7 @@ function playNote(senderDiv) {
   var noteOnMsg = [0x90, key, 96];
   currentOutput.send(noteOnMsg);
   console.log(keys)
-}
+}*/
 
 function playNoteMIDI(notenum) {
   var key = parseInt(notenum);
@@ -314,7 +315,7 @@ function playNoteMIDI(notenum) {
   currentOutput.send(noteOnMsg);
   console.log(keys);
 }
-
+/*
 function stopNote(senderDiv) { 
   //senderDiv  = key{num}
   var key = senderDiv.id.substring(3);
@@ -341,7 +342,7 @@ function stopNote(senderDiv) {
     }
   }
   keys=[]
-}
+}*/
 
 function stopNoteMIDI(notenum) { 
   try{
