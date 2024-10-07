@@ -36,6 +36,7 @@ async function fetchData() {
 $('#button1').click(async function() {
   try {
     const data = await fetchData(); // 獲取數據
+    
     if (btnstate === 1) {
         dataglobal = data;
         dataindex = dataindex <= 0 ? 7 : dataindex - 1; // 更新 index
@@ -50,6 +51,7 @@ $('#button1').click(async function() {
 $('#button2').click(async function() {
   try {
     const data = await fetchData(); // 獲取數據
+    console.log(data);
     dataglobal = data;
     dataindex = 0;
 
@@ -141,6 +143,57 @@ button3.addEventListener("click", function() {
     });
 });
 */
+function stopexam(){
+  for(let s=0;s<exnotes.length;s++){
+      if (isblackkey(exnotes[s].substring(3))) {
+        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+  };
+}
+function playexam(data,index){
+  if (exnotes.length>=1){
+    for(let s=0;s<exnotes.length;s++){
+      if (isblackkey(exnotes[s].substring(3))) {
+        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+  };}
+  if (Scale == "Rule of Octave Ascending"){
+    exnote_lst= data["Ascending"][index];
+    exnotes=[];
+    for(let j=0;j<exnote_lst.length;j++){
+      exnote = data["Ascending"][index][j];
+      exnote += modulation();
+      if (exnote > maxkeynum) exnote -=12;
+      exnotes.push(`key${exnote}`);
+      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      if (soundEnabled){
+            currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+            currentAudio.volume = 0.2;
+            currentAudio.play();
+      }
+    };
+  nowexam=data["Ascending"][index];
+  
+  };
+  if (Scale == "Rule of Octave Descending"){
+    exnote_lst= data["Descending"][index];
+    exnotes=[];
+    for(let j=0;j<exnote_lst.length;j++){
+      exnote = data["Descending"][index][j];
+      exnote += modulation();
+      if (exnote > maxkeynum) exnote -=12;
+      exnotes.push(`key${exnote}`);
+
+      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      if (soundEnabled){
+          currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+          currentAudio.volume = 0.2;
+          currentAudio.play();
+      }
+    };
+  nowexam=data["Descending"][index];
+  };
+}
 function updateImage(selectedValue){
   var image = document.getElementById('Image');
   var abc =`M: 4/4\n`+`L: 1/2\n`+`K: C\n`;
