@@ -42,7 +42,19 @@
         </select>
       </div>
     </div>
-    
+    <div id ="projects-holder" class="button-container">
+      <div class="radio-input">
+        <label>
+          <input value="Rule of Octave Ascending" name="value-radio" id="option1" type="radio" />
+          <span >Ascending</span>
+        </label>
+        <label>
+          <input value="Rule of Octave Descending" name="value-radio" id="option2" type="radio" />
+          <span>Descending</span>
+        </label>
+        <span class="selection" ></span>
+      </div>
+    </div>
   <div id="examplemode" style="display: block;" >
     <br>
         <div id ="main-project" tabindex="0" class="project-wrap">
@@ -61,12 +73,7 @@
             <option value="_B">A#/Bb</option>
             <option value="B">B</option><br>
           </select>
-          <div style="justify-content: center; text-align:center;">
-          <div >
-          <input type="radio" id="option1" name="radiogroup" value="Rule of Octave Ascending" ><label for="option1">Rule of Octave Ascending</label></div>
-          <div>
-          <input type="radio" id="option2" name="radiogroup" value="Rule of Octave Descending"><label for="option1">Rule of Octave Descending</label></div>
-        </div>
+          
         <div class="buttonwarp" id="buttonWarp" style="justify-content: center;">
           <div class="playbutton" id="leftButton">
           <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg> 
@@ -78,8 +85,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
           </div>
         </div>
+      
       </div>
   </div>
+  <script src="../javascripts/button_setting.js"></script>
     <div id="paper" style="display:block"></div>
     <div class="playbutton" id ="mute" onclick="mute()">
       <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
