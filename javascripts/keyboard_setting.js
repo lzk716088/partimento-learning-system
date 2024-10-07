@@ -1,3 +1,4 @@
+// 處理鍵盤相關
 
 var soundEnabled = true;
 var ismousedown = false;

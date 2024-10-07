@@ -286,63 +286,7 @@ function pushdescending(key){
   console.log(keys);
 } 
 var currentAudio=null;
-/*
-function playNote(senderDiv) {
-  var key = senderDiv.id.substring(3);
-  key = parseInt(key);
-  if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-        }
 
-        currentAudio = new Audio(`../88-keys/${key}.wav`);
-        currentAudio.play();
-
-  console.log(Scale);
-  document.getElementById(senderDiv.id).style.backgroundColor = "blue";
-  if (Scale == "Rule of Octave Ascending") pushascending(key);
-  else if (Scale == "Rule of Octave Descending") pushdescending(key);
-  var noteOnMsg = [0x90, key, 96];
-  currentOutput.send(noteOnMsg);
-  console.log(keys)
-}*/
-
-function playNoteMIDI(notenum) {
-  var key = parseInt(notenum);
-  keys.push(key);
-  document.getElementById(`key${key}`).style.backgroundColor = "blue";
-  var noteOnMsg = [0x90, key, 96];
-  currentOutput.send(noteOnMsg);
-  console.log(keys);
-}
-/*
-function stopNote(senderDiv) { 
-  //senderDiv  = key{num}
-  var key = senderDiv.id.substring(3);
-  var noteOffMsg = [0x80, key, 0];
-  currentOutput.send(noteOffMsg);
-  if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-        }
-  if (isblackkey(key)) document.getElementById(senderDiv.id).style.backgroundColor = "black";
-  else document.getElementById(senderDiv.id).style.backgroundColor = "ivory";
-  for (let i=0;i<keys.length;i++){
-    let note = keys[i].substring(3);
-    var noteOnMsg = [0x90, note, 96];
-    currentOutput.send(noteOnMsg);
-    if (isblackkey(note)){
-      document.getElementById(keys[i]).style.backgroundColor = "black";
-      document.getElementById(keys[i]).querySelector('.number_b').textContent = '';
-    }
-    else
-    {
-      document.getElementById(keys[i]).style.backgroundColor = "ivory";
-      document.getElementById(keys[i]).querySelector('.number').textContent = '';
-    }
-  }
-  keys=[]
-}*/
 
 function stopNoteMIDI(notenum) { 
   try{
@@ -405,4 +349,99 @@ function changeProgram(patch) {
   var programChangeMsg = [192, patch]; // 192 corrisponde a 0xC0 (Program Change, channel 1, Program Change)
   currentOutput.send(allNotesOffMsg);
   currentOutput.send(programChangeMsg);
+}
+
+function stopexam(){
+  for(let s=0;s<exnotes.length;s++){
+      if (isblackkey(exnotes[s].substring(3))) {
+        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+  };
+}
+function playexam(data,index){
+  if (exnotes.length>=1){
+    for(let s=0;s<exnotes.length;s++){
+      if (isblackkey(exnotes[s].substring(3))) {
+        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+  };}
+  if (Scale == "Rule of Octave Ascending"){
+    exnote_lst= data["Ascending"][index];
+    exnotes=[];
+    for(let j=0;j<exnote_lst.length;j++){
+      exnote = data["Ascending"][index][j];
+      exnote += modulation();
+      if (exnote > maxkeynum) exnote -=12;
+      exnotes.push(`key${exnote}`);
+      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      if (soundEnabled){
+            currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+            currentAudio.volume = 0.2;
+            currentAudio.play();
+      }
+    };
+  nowexam=data["Ascending"][index];
+  
+  };
+  if (Scale == "Rule of Octave Descending"){
+    exnote_lst= data["Descending"][index];
+    exnotes=[];
+    for(let j=0;j<exnote_lst.length;j++){
+      exnote = data["Descending"][index][j];
+      exnote += modulation();
+      if (exnote > maxkeynum) exnote -=12;
+      exnotes.push(`key${exnote}`);
+
+      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      if (soundEnabled){
+          currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+          currentAudio.volume = 0.2;
+          currentAudio.play();
+      }
+    };
+  nowexam=data["Descending"][index];
+  };
+}
+function updateImage(selectedValue){
+  var image = document.getElementById('Image');
+  var abc =`M: 4/4\n`+`L: 1/2\n`+`K: C\n`;
+  var sheetlst
+  dataindex = 0
+  stopexam()
+  button2.innerHTML = orgSvg;
+  btnstate =0;
+  // 根據選擇的值更新圖片路徑
+  if (selectedValue === 'Rule of Octave Ascending') {
+    console.log(selectedKey)
+    //image.src = `Ascending/Ascending${selectedKey}.jpg`;
+
+    fetch('../json/sheets.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (result) {
+            sheetlst = result;
+
+    lst = sheetlst["Ascending"][selectedKey];
+    abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6\\n3"[${lst[2]}]"6\\n3"[${lst[3]}]|"5\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+    ABCJS.renderAbc("paper", abc);
+    console.log(abc)
+    });
+
+    
+  } else if (selectedValue === 'Rule of Octave Descending') {
+    image.src = `Descending/Descending${selectedKey}.jpg`;
+    fetch('../json/sheets.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (result) {
+            sheetlst = result;
+            lst = sheetlst["Descending"][selectedKey];
+            console.log(lst)
+            abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6#\\n3"[${lst[2]}]"5\\n3"[${lst[3]}]|"6\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+            ABCJS.renderAbc("paper", abc);
+            console.log(abc)
+        });
+  }
 }
