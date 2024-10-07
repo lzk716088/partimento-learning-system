@@ -16,21 +16,21 @@ $(document).ready(function() {
       } else {
           kbs+=`<div id="key${i}" class="white_key key"></div>`
       }
-      $('.key').mousedown(function() {
+      
+  }
+  
+    $('#keyboardContainer').html(kbs);
+
+    $('.key').mousedown(function() {
         playNote(this.id);
         console.log(`${this.id} down.`);
         });
 
-    $('.key').mouseup(function() {
-        stopNote(this.id);
-        console.log(`${this.id} up.`);
-    });
-  }
-  
-  $('#keyboardContainer').html(kbs);
-
-    
-  });
+        $('.key').mouseup(function() {
+            stopNote(this.id);
+            console.log(`${this.id} up.`);
+        });
+        });
 
 function mute(){
     soundEnabled = !soundEnabled; // 切换声音状态
