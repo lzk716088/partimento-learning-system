@@ -3,110 +3,159 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/play.css">
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
-  <title>Exercise - Partimento Learning System</title>
+  <title>Practice - Partimento Learning System</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <script src="https://img1.ccgxk.com/ccgxk-oss/js/abc.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
 </head>
 
 <body onload="startMIDI()">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  
+  <script src="../javascripts/practice.js"></script>
   <div id="menu-holder" role="button" tabindex="0" class="collapsed " aria-label="開啟導覽列">
                 <svg id ="menuicon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px" fill="#5f6368"><rect fill="none" height="20" width="20"/><g>
                     <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></g></svg>
-                <span id="app-name">Exercise</span>
-  </div>
+                <span id="app-name">Practice</span>
+            </div>
   <script type="text/javascript">
       document.getElementById('menu-holder').addEventListener('click', function() {
       window.location.href = '../index.html';
   });
   </script>
-  <script src="script.js"></script>
-
   <div id ="block-holder">
-  <p id="log_string" style="display:none"></p>
-  <div id ="projects-holder" class="button-container">
-        <div id="main-project" tabindex="0" class="project-wrap">
-            <h3 for="chooseOutput">MIDI Input</h3><br/>
-              <select id="midi-inputs" class="Selector1">
-                <option value="" >Select MIDI Input</option><br/>
-              </select>
-        </div>
-        <div id="main-project"  tabindex="0" class="project-wrap">
-          <h3 for="chooseOutput">MIDI Output</h3><br/>
-          <select id="chooseOutput" onchange="changeOutput(value) " class="Selector2">
-          <option>None</option>
-          </select>
-        </div>
+    <label id="log_string" style="display:none"></label>
+    <div id ="projects-holder" class="button-container">
+      <div id="main-project" tabindex="0" class="project-wrap">
+          <h3 for="chooseOutput">MIDI Input</h3><br/>
+            <select id="midi-inputs" class="Selector1">
+              <option value="" >Select MIDI Input</option><br/>
+            </select>
+      </div>
+      <div id="main-project"  tabindex="0" class="project-wrap">
+        <h3 for="chooseOutput">MIDI Output</h3><br/>
+        <select id="chooseOutput" onchange="changeOutput(value) " class="Selector2">
+        <option>None</option>
+        </select>
+      </div>
     </div>
-  <hr>
-  <div id="exercisemode" style="display: block;">
-    <select id="exerciseSelect">
-      <option value="exercise1">Exercise 1</option>
-      <option value="exercise2">Exercise 2</option>
-      <option value="exercise3">Exercise 3</option>
-    </select>
-    <!--button id="showexercise">Show</button-->
-  </div>
-  <script type="text/javascript">
-    var exerciseselect = document.getElementById("exerciseSelect");
-    exerciseselect.addEventListener("change", function() {
-      
-      selectedE = exerciseselect.value;
-      console.log(selectedE)
-      updateImage(selectedE);
-    });
-  </script>
-  <!--ButtonWarp-->
-
-  <div class="buttonwarp">
+    
+  <div id="examplemode" style="display: block;" >
+    <br>
+        <div id ="main-project" tabindex="0" class="project-wrap">
+              <h3 >Key:</h3>
+          <select id="selectkey" class="Selector3">
+            <option value="C">C</option>
+            <option value="^C">C#/Db</option>
+            <option value="D">D</option>
+            <option value="_E">D#/Eb</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="^F">F#/Gb</option>
+            <option value="G">G</option>
+            <option value="_A">G#/Ab</option>
+            <option value="A">A</option>
+            <option value="_B">A#/Bb</option>
+            <option value="B">B</option><br>
+          </select>
+          <div style="justify-content: center; text-align:center;">
+          <div >
+          <input type="radio" id="option1" name="radiogroup" value="Rule of Octave Ascending" ><label for="option1">Rule of Octave Ascending</label></div>
+          <div>
+          <input type="radio" id="option2" name="radiogroup" value="Rule of Octave Descending"><label for="option1">Rule of Octave Descending</label></div>
+        </div>
+        <div class="buttonwarp" id="buttonWarp" style="justify-content: center;">
           <div class="playbutton" id="leftButton">
-          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path  d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg> 
+          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg> 
           </div>
           <div class="playbutton" id="showDataButton">
           <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>
           </div>
-          <div class="playbutton" id="rightButton">
-          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+          <div class="playbutton" id="rightButton" >
+            <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
           </div>
+        </div>
+      </div>
   </div>
-  <script type="text/javascript">
-    function stopexam(){
+    <script>
+        var option1 = document.getElementById("option1");
+        var option2 = document.getElementById("option2");
+        function stopexam(){
           for(let s=0;s<exnotes.length;s++){
               if (isblackkey(exnotes[s].substring(3))) {
                 document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
               else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
           };
-          dataindex=0;
-          btnstate=0;
-          button2.innerHTML = orgSvg;
         }
-    function playexam(data,index){
-        if (exnotes.length>=1){
-          for(let s=0;s<exnotes.length;s++){
-            if (isblackkey(exnotes[s].substring(3))) {
-              document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-            else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
-        };}
-          exnote_lst= data[selectedE][index];
-          exnotes=[];
-          for(let j=0;j<exnote_lst.length;j++){
-            exnote = data[selectedE][index][j];
-            exnote += modulation();
-            if (exnote > maxkeynum) exnote -=12;
-            exnotes.push(`key${exnote}`);
-            //document.getElementById(`key${exnote}`).style.backgroundColor = "red";
-            if (soundEnabled){
+        function playexam(data,index){
+          if (exnotes.length>=1){
+            for(let s=0;s<exnotes.length;s++){
+              if (isblackkey(exnotes[s].substring(3))) {
+                document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+              else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+          };}
+          if (Scale == "Rule of Octave Ascending"){
+            exnote_lst= data["Ascending"][index];
+            exnotes=[];
+            for(let j=0;j<exnote_lst.length;j++){
+              exnote = data["Ascending"][index][j];
+              exnote += modulation();
+              if (exnote > maxkeynum) exnote -=12;
+              exnotes.push(`key${exnote}`);
+              document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+              if (soundEnabled){
                     currentAudio = new Audio(`../88-keys/${exnote}.wav`);
                     currentAudio.volume = 0.2;
                     currentAudio.play();
               }
+            };
+          nowexam=data["Ascending"][index];
+          
           };
-        console.log(data[selectedE][index]);
-        nowexam=data[selectedE][index];
-        
-      }
-  </script>
-  <script>
+          if (Scale == "Rule of Octave Descending"){
+            exnote_lst= data["Descending"][index];
+            exnotes=[];
+            for(let j=0;j<exnote_lst.length;j++){
+              exnote = data["Descending"][index][j];
+              exnote += modulation();
+              if (exnote > maxkeynum) exnote -=12;
+              exnotes.push(`key${exnote}`);
+
+              document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+              if (soundEnabled){
+                  currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+                  currentAudio.volume = 0.2;
+                  currentAudio.play();
+              }
+            };
+          nowexam=data["Descending"][index];
+          };
+        }
+
+        // 為單選按鈕添加事件監聽器
+        option1.addEventListener("change", showButtons);
+        option2.addEventListener("change", showButtons);
+
+        function showButtons() {
+            document.getElementById("buttonWarp").style.display = "flex";
+        }
+        option1.addEventListener("change", function() {
+            showButtons();
+            Scale = option1.value;
+            console.log("Selected Scale:", Scale);
+            updateImage(Scale);
+        });
+        option2.addEventListener("change", function() {
+            showButtons();
+            Scale = option2.value;
+            console.log("Selected Scale:", Scale);
+            updateImage(Scale);
+        });
+
         // 獲取按鈕元素
         var button1 = document.getElementById("leftButton");
         var button2 = document.getElementById("showDataButton");
@@ -115,11 +164,10 @@
         var newSvg = `
           <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`;
         var orgSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>`;
-
         var btnstate=0;
         // 添加點擊事件監聽器
         button1.addEventListener("click", function() {
-            fetch('data.json')
+            fetch('../json/practice_data.json')
             .then(response => response.json()) 
             .then(data => {
                 if (btnstate ==1){
@@ -136,7 +184,7 @@
         });
 
         button2.addEventListener("click", function() {
-            fetch('data.json')
+            fetch('../json/practice_data.json')
             .then(response => response.json()) 
             .then(data => {
                 dataglobal = data;
@@ -161,7 +209,7 @@
         });
 
         button3.addEventListener("click", function() {
-            fetch('data.json')
+            fetch('../json/practice_data.json')
             .then(response => response.json()) 
             .then(data => {
               if (btnstate ==1){
@@ -177,35 +225,59 @@
             });
         });
     </script>
-
-  <!--ABC here-->
-  
-  <div id="paper" style="display:block"></div>
+    <div id="paper" style="display:block"></div>
     <script src="https://img1.ccgxk.com/ccgxk-oss/js/abc.js" type="text/javascript"></script>
       <script type="text/javascript">
             function updateImage(selectedValue){
-            var image = document.getElementById('Image');
-            // 根據選擇的值更新圖片路徑
-              image.src = `${selectedValue}.jpg`;
-              stopexam();
-            
+              var image = document.getElementById('Image');
+              var abc =`M: 4/4\n`+`L: 1/2\n`+`K: C\n`;
+              var sheetlst
+              dataindex = 0
+              stopexam()
+              button2.innerHTML = orgSvg;
+              btnstate =0;
+              // 根據選擇的值更新圖片路徑
+              if (selectedValue === 'Rule of Octave Ascending') {
+                console.log(selectedKey)
+                //image.src = `Ascending/Ascending${selectedKey}.jpg`;
+
+                fetch('../json/sheets.json')
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (result) {
+                        sheetlst = result;
+
+                lst = sheetlst["Ascending"][selectedKey];
+                abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6\\n3"[${lst[2]}]"6\\n3"[${lst[3]}]|"5\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+                ABCJS.renderAbc("paper", abc);
+                console.log(abc)
+                });
+
+                
+              } else if (selectedValue === 'Rule of Octave Descending') {
+                image.src = `Descending/Descending${selectedKey}.jpg`;
+                fetch('../json/sheets.json')
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (result) {
+                        sheetlst = result;
+                        lst = sheetlst["Descending"][selectedKey];
+                        console.log(lst)
+                        abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6#\\n3"[${lst[2]}]"5\\n3"[${lst[3]}]|"6\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+                        ABCJS.renderAbc("paper", abc);
+                        console.log(abc)
+                    });
+              }
           }
       </script>
-  
-  <img id="Image" src="exercise1.jpg"><br>
-  <pre id="jsonDataDisplay"></pre>
-
-  <!--PlayButton-->
-
-  <div class="playbutton" id ="mute" onclick="mute()">
+    <div class="playbutton" id ="mute" onclick="mute()">
       <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
     </div>
-
-  <!--Keyboard-->
-
-  <div class="keyboard" id="keyboardContainer"></div>
-  <script type="text/javascript">
-    var kbs = '';
+    <div class="keyboard" id="keyboardContainer"></div>
+    <script>
+        var kbs = '';
         var m = [40, 80, 40, 40, 80];
         var mar = 30;
         var c = 0;
@@ -311,8 +383,9 @@
               stopNote(keyDiv);
           }
         }
-  </script>
-  <div id="div_options"></div>
-</div>
+    </script>
+    <img id="Image" src=""></div>
+    <pre id="jsonDataDisplay"></pre>
+  </div>
 </body>
 </html>
