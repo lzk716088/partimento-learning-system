@@ -1,4 +1,5 @@
-
+var soundEnabled = true;
+var ismousedown = false;
 $(document).ready(function() {
     //產生琴鍵
     var kbs = '';
@@ -6,8 +7,6 @@ $(document).ready(function() {
     var mar = 30;
     var c = 0;
     
-    var soundEnabled = true;
-    var ismousedown = false;
     for (var i = minkeynum; i <= maxkeynum; i++) {
       if (i % 12 == 1 || i % 12 == 3 || i % 12 == 6 || i % 12 == 8 || i % 12 == 10) {
           kbs += `<div id="key${i}" class="black_key key" "style="margin-left:${mar}px"></div>`
