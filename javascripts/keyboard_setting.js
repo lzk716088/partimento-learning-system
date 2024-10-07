@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function() {
     //產生琴鍵
     var kbs = '';
     var m = [40, 80, 40, 40, 80];
@@ -10,12 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     var ismousedown = false;
     for (var i = minkeynum; i <= maxkeynum; i++) {
       if (i % 12 == 1 || i % 12 == 3 || i % 12 == 6 || i % 12 == 8 || i % 12 == 10) {
-          kbs += `<div id="key${i}" class="black_key" onmousedown="playNote(this)" onmouseup="stopNote(this)" onmouseenter="handleMouseEnter(this)" onmouseleave="handleMouseLeave(this)"style="margin-left:${mar}px"><span class="number_b"></span></div>`
+          kbs += `<div id="key${i}" class="black_key key" "style="margin-left:${mar}px"></div>`
               mar+= m[c]
               c=(c+1)%m.length
       } else {
-          kbs+=`<div id="key${i}" class="white_key" onmousedown="playNote(this)" onmouseup="stopNote(this)" onmouseenter="handleMouseEnter(this)" onmouseleave="handleMouseLeave(this)"><span class="number"></span></div>`
+          kbs+=`<div id="key${i}" class="white_key key" ></div>`
       }
+      $('.key').mousedown(function() {
+        playNote(this.id);
+        });
+
+    $('.key').mouseup(function() {
+        playNote(this.id);
+    });
   }
   
   $('#keyboardContainer').html(kbs);
