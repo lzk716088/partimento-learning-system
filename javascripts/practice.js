@@ -79,30 +79,6 @@ function twoarray(){
     return true;
   }catch{}
 }
-//產生琴鍵
-document.addEventListener('DOMContentLoaded', function() {
-  /*
-  var minkeynum = 27; // 起始键编号
-  var maxkeynum = 88; // 结束键编号
-  kbs = ``;
-  m = [40,80,40,40,80]
-  mar = 30
-  c = 0
-  var whiteKeyCount = 0;
-  for (var i = minkeynum;i <= maxkeynum;i++){
-    if (i % 12 == 1 || i % 12 == 3 || i % 12 == 6 || i % 12 == 8 || i % 12 == 10){
-      kbs += `<div id="key${i}" class="black_key" onmousedown="playNote(this)" onmouseup="stopNote(this)" onmouseout="stopNote(this)" style="margin-left:${mar}px"><span class="number_b"></span></div>`
-      mar+= m[c]
-      c=(c+1)%m.length
-    }
-    else{
-        kbs+=`<div id="key${i}" class="white_key" onmousedown="playNote(this)" onmouseup="stopNote(this)" onmouseout="stopNote(this)" ><span class="number"></span></div>`
-    }
-  }
-  document.getElementById('keyboardContainer').innerHTML += kbs;*/
-  toggleContent()
-  selectKeyfunc()
-});
 
 //播放data.json
 
@@ -117,6 +93,8 @@ function startMIDI() {
     showAlert("error","Error","Your browser does not support the Web MIDI API!")
     document.getElementById("log_string").innerHTML = "Your browser does not support the Web MIDI API!";
   }
+  toggleContent();
+  selectKeyfunc();
 }
 //若讀取MIDI成功，開始程式
 function onMIDISuccess(midiAccess) {
@@ -395,26 +373,13 @@ function stopNoteMIDI(notenum) {
     }
 
   }
-  /*if (isblackkey(key)) document.getElementById(`key${key}`).style.backgroundColor = "black";
-  else document.getElementById(`key${key}`).style.backgroundColor = "ivory";*/
-  /*for (let i=0;i<keys.length;i++){
-    //let note = keys[i];
-    if (isblackkey(keys[i])){
-      document.getElementById(keys[i]).style.backgroundColor = "black";
-      document.getElementById(keys[i]).querySelector('.number_b').textContent = '';
-    }
-    else
-    {
-      document.getElementById(keys[i]).style.backgroundColor = "ivory";
-      document.getElementById(keys[i]).querySelector('.number').textContent = '';
-    }
-  }*/
   const index = keys.indexOf(notenum);
   if (index > -1) { // only splice array when item is found
     keys.splice(index, 1); // 2nd parameter means remove one item only
   }
   console.log(keys);
 }
+
 function modulation(){
   m = 0
   console.log(`modulation's Key: ${selectedKey}`)
@@ -439,4 +404,193 @@ function changeProgram(patch) {
   var programChangeMsg = [192, patch]; // 192 corrisponde a 0xC0 (Program Change, channel 1, Program Change)
   currentOutput.send(allNotesOffMsg);
   currentOutput.send(programChangeMsg);
+}
+
+var option1 = document.getElementById("option1");
+var option2 = document.getElementById("option2");
+
+
+function stopexam(){
+  for(let s=0;s<exnotes.length;s++){
+      if (isblackkey(exnotes[s].substring(3))) {
+        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+  };
+}
+function playexam(data,index){
+  if (exnotes.length>=1){
+    for(let s=0;s<exnotes.length;s++){
+      if (isblackkey(exnotes[s].substring(3))) {
+        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+  };}
+  if (Scale == "Rule of Octave Ascending"){
+    exnote_lst= data["Ascending"][index];
+    exnotes=[];
+    for(let j=0;j<exnote_lst.length;j++){
+      exnote = data["Ascending"][index][j];
+      exnote += modulation();
+      if (exnote > maxkeynum) exnote -=12;
+      exnotes.push(`key${exnote}`);
+      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      if (soundEnabled){
+            currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+            currentAudio.volume = 0.2;
+            currentAudio.play();
+      }
+    };
+  nowexam=data["Ascending"][index];
+  
+  };
+  if (Scale == "Rule of Octave Descending"){
+    exnote_lst= data["Descending"][index];
+    exnotes=[];
+    for(let j=0;j<exnote_lst.length;j++){
+      exnote = data["Descending"][index][j];
+      exnote += modulation();
+      if (exnote > maxkeynum) exnote -=12;
+      exnotes.push(`key${exnote}`);
+
+      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      if (soundEnabled){
+          currentAudio = new Audio(`../88-keys/${exnote}.wav`);
+          currentAudio.volume = 0.2;
+          currentAudio.play();
+      }
+    };
+  nowexam=data["Descending"][index];
+  };
+}
+
+// 為單選按鈕添加事件監聽器
+option1.addEventListener("change", showButtons);
+option2.addEventListener("change", showButtons);
+
+function showButtons() {
+    document.getElementById("buttonWarp").style.display = "flex";
+}
+option1.addEventListener("change", function() {
+    showButtons();
+    Scale = option1.value;
+    console.log("Selected Scale:", Scale);
+    updateImage(Scale);
+});
+option2.addEventListener("change", function() {
+    showButtons();
+    Scale = option2.value;
+    console.log("Selected Scale:", Scale);
+    updateImage(Scale);
+});
+
+// 獲取按鈕元素
+var button1 = document.getElementById("leftButton");
+var button2 = document.getElementById("showDataButton");
+var button3 = document.getElementById("rightButton");
+
+var newSvg = `
+  <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`;
+var orgSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>`;
+var btnstate=0;
+// 添加點擊事件監聽器
+button1.addEventListener("click", function() {
+    fetch('../json/practice_data.json')
+    .then(response => response.json()) 
+    .then(data => {
+        if (btnstate ==1){
+          dataglobal = data;
+          if (dataindex <=0) dataindex=7;
+          else dataindex--;
+          playexam(data , dataindex);
+          console.log(`${data} ${dataindex}`)
+      }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+button2.addEventListener("click", function() {
+    fetch('../json/practice_data.json')
+    .then(response => response.json()) 
+    .then(data => {
+        dataglobal = data;
+        dataindex=0;
+        if (btnstate ==0) 
+          {
+            button2.innerHTML = newSvg;
+            btnstate =1;
+            playexam(data , dataindex);
+          }
+        else
+        {
+          button2.innerHTML = orgSvg;
+            btnstate =0;
+            stopexam();
+        }
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+button3.addEventListener("click", function() {
+    fetch('../json/practice_data.json')
+    .then(response => response.json()) 
+    .then(data => {
+      if (btnstate ==1){
+        dataglobal = data;
+        if (dataindex >=7) dataindex=0;
+        else dataindex++;
+        playexam(data , dataindex);
+        console.log(`${data} ${dataindex}`)
+      }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+function updateImage(selectedValue){
+  var image = document.getElementById('Image');
+  var abc =`M: 4/4\n`+`L: 1/2\n`+`K: C\n`;
+  var sheetlst
+  dataindex = 0
+  stopexam()
+  button2.innerHTML = orgSvg;
+  btnstate =0;
+  // 根據選擇的值更新圖片路徑
+  if (selectedValue === 'Rule of Octave Ascending') {
+    console.log(selectedKey)
+    //image.src = `Ascending/Ascending${selectedKey}.jpg`;
+
+    fetch('../json/sheets.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (result) {
+            sheetlst = result;
+
+    lst = sheetlst["Ascending"][selectedKey];
+    abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6\\n3"[${lst[2]}]"6\\n3"[${lst[3]}]|"5\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+    ABCJS.renderAbc("paper", abc);
+    console.log(abc)
+    });
+
+    
+  } else if (selectedValue === 'Rule of Octave Descending') {
+    image.src = `Descending/Descending${selectedKey}.jpg`;
+    fetch('../json/sheets.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (result) {
+            sheetlst = result;
+            lst = sheetlst["Descending"][selectedKey];
+            console.log(lst)
+            abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6#\\n3"[${lst[2]}]"5\\n3"[${lst[3]}]|"6\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+            ABCJS.renderAbc("paper", abc);
+            console.log(abc)
+        });
+  }
 }
