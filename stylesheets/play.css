@@ -271,3 +271,8 @@ div.black_key:hover {
 .radio-input label:nth-child(2):has(input:checked) ~ .selection {
   transform: translateX(calc(var(--container_width) * 1 / 2));
 }
+
+.abcjs-note_selected {
+    fill: red;
+    stroke: none;
+}
