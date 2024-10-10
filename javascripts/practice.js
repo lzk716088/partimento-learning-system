@@ -368,6 +368,8 @@ function playexam(data,index){
   if (Scale == "Rule of Octave Ascending"){
     exnote_lst= data["Ascending"][index];
     exnotes=[];
+    $('.abcjs-note_selected').removeClass('abcjs-note_selected');
+
     for(let j=0;j<exnote_lst.length;j++){
       exnote = data["Ascending"][index][j];
       exnote += modulation();
@@ -378,6 +380,10 @@ function playexam(data,index){
             currentAudio = new Audio(`../88-keys/${exnote}.wav`);
             currentAudio.volume = 0.2;
             currentAudio.play();
+      }
+      var noteElement = $(`[data-index="${j}"]`);  // 使用 jQuery 查找音符
+      if (noteElement.length) {
+          noteElement.addClass("abcjs-note_selected");  // 添加選中樣式
       }
     };
   nowexam=data["Ascending"][index];
