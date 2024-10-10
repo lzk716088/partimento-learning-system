@@ -273,6 +273,7 @@ div.black_key:hover {
 }
 
 .abcjs-note_selected {
+    background-color: #ffffcc;
     fill: red;
-    stroke: none;
+    transition: background-color 0.3s ease;
 }
