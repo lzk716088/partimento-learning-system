@@ -27,6 +27,7 @@ $('#button1').click(function() {
 // 按鈕一：上一個
 
 $('#leftButton').click(async function() {
+  $('.abcjs-note_selected').removeClass('abcjs-note_selected');
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
     .then(data => {
@@ -44,6 +45,7 @@ $('#leftButton').click(async function() {
 });
 // 按鈕二：播放/停止
 $('#showDataButton').click(async function() {
+  $('.abcjs-note_selected').removeClass('abcjs-note_selected');
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
     .then(data => {
@@ -69,6 +71,7 @@ $('#showDataButton').click(async function() {
 });
 // 按鈕三：下一個
 $('#rightButton').click(async function() {
+  $('.abcjs-note_selected').removeClass('abcjs-note_selected');
     fetch('../json/practice_data.json')
     .then(response => response.json()) 
     .then(data => {
