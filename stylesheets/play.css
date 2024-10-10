@@ -276,4 +276,5 @@ div.black_key:hover {
     background-color: #ffffcc;
     fill: red;
     transition: background-color 0.3s ease;
+    stroke: none;
 }
