@@ -12,7 +12,6 @@ body {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             -moz-font-smoothing: antialiased;
-            font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
             font-smooth: always;
         }
@@ -97,10 +96,6 @@ body {
             flex: 1;
             margin-right: 30px; /* 調整按鈕之間的間距 */
         }
-.project-wrap:hover {
-    /*transform: translate(-1px, -1px);
-    box-shadow: 0px 2px 9px rgba(0,0,0,0.30);*/
-}
 .buttonwarp {
         flex-wrap: wrap;
         flex-direction: row;
@@ -111,8 +106,7 @@ body {
 .playbutton {
     margin-right: 10px; /* 調整按鈕之間的間距 */
 }
-.playbutton:hover {
-}
+
 #black_key, #white_key {
     pointer-events: none; /* 將非按鈕區域設置為不觸發滑鼠事件 */
 }
@@ -273,8 +267,8 @@ div.black_key:hover {
 }
 
 .abcjs-note_selected {
-    background-color: #ffffcc;
+
     fill: red;
-    transition: background-color 0.3s ease;
+    transition: fill 0.3s ease;
     stroke: none;
 }

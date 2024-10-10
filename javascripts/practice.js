@@ -384,11 +384,7 @@ function playexam(data,index){
     };
     var noteElement = $(`[data-index="${index}"]`);  // 使用 jQuery 查找音符
       if (noteElement.length) {
-        var bbox = noteElement[0].getBBox();
-    
-        // 插入一个矩形作为背景
-        noteElement.before(`<rect x="${bbox.x - 2}" y="${bbox.y - 2}" width="${bbox.width + 4}" height="${bbox.height + 4}" fill="#ffffcc" class="note-background"/>`);
-          noteElement.addClass("abcjs-note_selected");  // 添加選中樣式
+        noteElement.addClass("abcjs-note_selected");  // 添加選中樣式
       }
     nowexam=data["Ascending"][index];
   };
@@ -408,6 +404,10 @@ function playexam(data,index){
           currentAudio.play();
       }
     };
+    var noteElement = $(`[data-index="${index}"]`);  // 使用 jQuery 查找音符
+      if (noteElement.length) {
+        noteElement.addClass("abcjs-note_selected");  // 添加選中樣式
+      }
   nowexam=data["Descending"][index];
   };
 }
