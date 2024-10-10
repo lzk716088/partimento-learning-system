@@ -381,13 +381,12 @@ function playexam(data,index){
             currentAudio.volume = 0.2;
             currentAudio.play();
       }
-      var noteElement = $(`[data-index="${j}"]`);  // 使用 jQuery 查找音符
+    };
+    var noteElement = $(`[data-index="${index}"]`);  // 使用 jQuery 查找音符
       if (noteElement.length) {
           noteElement.addClass("abcjs-note_selected");  // 添加選中樣式
       }
-    };
-  nowexam=data["Ascending"][index];
-  
+    nowexam=data["Ascending"][index];
   };
   if (Scale == "Rule of Octave Descending"){
     exnote_lst= data["Descending"][index];
