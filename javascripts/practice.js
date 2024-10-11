@@ -199,11 +199,13 @@ function pushascending(key){
   for (i=0;i<keys.length;i++){
     if (isblackkey(k[i])){
     //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number_b').textContent = sig[i];
+    $(`#${keys[i]} .number_b`).text(sig[i]);
+    //document.getElementById(keys[i]).querySelector('.number_b').textContent = sig[i];
     }
   else{
     //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number').textContent = sig[i];
+    $(`#${keys[i]} .number`).text(sig[i]);
+    //document.getElementById(keys[i]).querySelector('.number').textContent = sig[i];
     }
   }
   console.log(keys)
