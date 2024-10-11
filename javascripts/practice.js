@@ -370,7 +370,8 @@ function playexam(data,index){
       exnote += modulation();
       if (exnote > maxkeynum) exnote -=12;
       exnotes.push(`key${exnote}`);
-      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      $(`key${exnote}`).css('backgroundColor',red);
+      //document.getElementById(`key${exnote}`).style.backgroundColor = "red";
       if (soundEnabled){
             currentAudio = new Audio(`../88-keys/${exnote}.wav`);
             currentAudio.volume = 0.2;
