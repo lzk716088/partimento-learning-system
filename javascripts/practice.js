@@ -269,12 +269,14 @@ function pushdescending(key){
     if (isblackkey(k[i])){
       var noteOnMsg = [0x90, k[i], 96];
       currentOutput.send(noteOnMsg);
-    //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number_b').textContent = sig[i];
+      $(`#${keys[i]} .number_b`).text(sig[i]);
+      //document.getElementById(keys[i]).style.backgroundColor = "blue";
+    //document.getElementById(keys[i]).querySelector('.number_b').textContent = sig[i];
     }
   else{
+    $(`#${keys[i]} .number`).text(sig[i]);
     //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number').textContent = sig[i];
+    //document.getElementById(keys[i]).querySelector('.number').textContent = sig[i];
     }
   }
   console.log(keys);
@@ -297,21 +299,25 @@ function stopNoteMIDI(notenum) {
 
   try{
       if (!twoarray()&& nowexam.includes(key)) {
-      document.getElementById(`key${key}`).style.backgroundColor = "red";
-    } 
-    else if (isblackkey(key)) {
-        document.getElementById(`key${key}`).style.backgroundColor = "black";
-    } else {
-        document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-    }
-  }catch(error){
-    if (isblackkey(key)) {
-        document.getElementById(`key${key}`).style.backgroundColor = "black";
-    } else {
-        document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-    }
-
-  }
+        $(`#key${key}`).css('background','red');
+      //document.getElementById(`key${key}`).style.backgroundColor = "red";
+      } 
+      else if (isblackkey(key)) {
+        $(`#key${key}`).css('background','black');
+          //document.getElementById(`key${key}`).style.backgroundColor = "black";
+      } else {
+        $(`#key${key}`).css('background','ivory');
+          //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+      }
+    }catch(error){
+      if (isblackkey(key)) {
+        $(`#key${key}`).css('background','black');
+          //document.getElementById(`key${key}`).style.backgroundColor = "black";
+      } else {
+        $(`#key${key}`).css('background','ivory');
+          //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+      }
+      }
   const index = keys.indexOf(notenum);
   if (index > -1) { // only splice array when item is found
     keys.splice(index, 1); // 2nd parameter means remove one item only
@@ -349,8 +355,7 @@ function stopexam(){
   for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
         $(`#${exnotes[s]}`).css('backgroundColor','black');}
-        //document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-      else $(`#${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+      else $(`#${exnotes[s]}`).css('backgroundColor','ivory');
   };
 }
 function playexam(data,index){
@@ -358,8 +363,7 @@ function playexam(data,index){
     for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
         $(`#${exnotes[s]}`).css('backgroundColor','black');}
-        //document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-      else $(`#${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+      else $(`#${exnotes[s]}`).css('backgroundColor','ivory');
   };}
   if (Scale == "Rule of Octave Ascending"){
     exnote_lst= data["Ascending"][index];
@@ -371,7 +375,6 @@ function playexam(data,index){
       if (exnote > maxkeynum) exnote -=12;
       exnotes.push(`key${exnote}`);
       $(`#key${exnote}`).css('backgroundColor','red');
-      //document.getElementById(`key${exnote}`).style.backgroundColor = "red";
       if (soundEnabled){
             currentAudio = new Audio(`../88-keys/${exnote}.wav`);
             currentAudio.volume = 0.2;
@@ -393,7 +396,7 @@ function playexam(data,index){
       if (exnote > maxkeynum) exnote -=12;
       exnotes.push(`key${exnote}`);
 
-      document.getElementById(`key${exnote}`).style.backgroundColor = "red";
+      $(`#key${exnote}`).css('backgroundColor','red');
       if (soundEnabled){
           currentAudio = new Audio(`../88-keys/${exnote}.wav`);
           currentAudio.volume = 0.2;
