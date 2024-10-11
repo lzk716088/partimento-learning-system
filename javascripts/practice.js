@@ -348,18 +348,18 @@ function changeProgram(patch) {
 function stopexam(){
   for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
-        $(`${exnotes[s]}`).css('backgroundColor','black');}
+        $(`#${exnotes[s]}`).css('backgroundColor','black');}
         //document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-      else $(`${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+      else $(`#${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
   };
 }
 function playexam(data,index){
   if (exnotes.length>=1){
     for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
-        $(`${exnotes[s]}`).css('backgroundColor','black');}
+        $(`#${exnotes[s]}`).css('backgroundColor','black');}
         //document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-      else $(`${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+      else $(`#${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
   };}
   if (Scale == "Rule of Octave Ascending"){
     exnote_lst= data["Ascending"][index];
@@ -370,7 +370,7 @@ function playexam(data,index){
       exnote += modulation();
       if (exnote > maxkeynum) exnote -=12;
       exnotes.push(`key${exnote}`);
-      $(`key${exnote}`).css('backgroundColor',red);
+      $(`#key${exnote}`).css('backgroundColor',red);
       //document.getElementById(`key${exnote}`).style.backgroundColor = "red";
       if (soundEnabled){
             currentAudio = new Audio(`../88-keys/${exnote}.wav`);
