@@ -51,14 +51,8 @@ function toggleContent(){
     });
   });
 }
-function selectKeyfunc(){
-  const selectKey = document.getElementById("selectkey");
-  selectKey.addEventListener("change", function() {
-    selectedKey = selectKey.value;
-    console.log("Key：" + selectedKey);
-    updateImage(Scale)
-});
-}
+
+
 
 //判斷該鍵是否為黑鍵
 
@@ -368,7 +362,6 @@ function playexam(data,index){
   if (Scale == "Rule of Octave Ascending"){
     exnote_lst= data["Ascending"][index];
     exnotes=[];
-    $('.abcjs-note_selected').removeClass('abcjs-note_selected');
 
     for(let j=0;j<exnote_lst.length;j++){
       exnote = data["Ascending"][index][j];

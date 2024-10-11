@@ -21,8 +21,13 @@ var newSvg = `
   <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`;
 var orgSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>`;
 var btnstate=0;
-$('#button1').click(function() {
 
+// 選擇調性的按鈕
+$('#selectkey').change(function(){
+  selectedKey = selectKey.value;
+    console.log("Key：" + selectedKey);
+    updateImage(Scale);
+    stopexam();
 });
 // 按鈕一：上一個
 
@@ -53,13 +58,13 @@ $('#showDataButton').click(async function() {
         dataindex=0;
         if (btnstate ==0) 
           {
-            button2.innerHTML = newSvg;
+            $('#showDataButton').html(newSvg);
             btnstate =1;
             playexam(data , dataindex);
           }
         else
         {
-          button2.innerHTML = orgSvg;
+          $('#showDataButton').html(orgSvg);
             btnstate =0;
             stopexam();
         }
