@@ -286,46 +286,6 @@ function pushdescending(key){
 var currentAudio=null;
 
 
-function stopNoteMIDI(notenum) { 
-  try{
-  if (twoarray()) {
-    if (dataindex <7) dataindex++;
-    else dataindex=0;
-    playexam(dataglobal , dataindex);
-  }
-  }catch{}
-
-  var key = notenum;
-  var noteOffMsg = [0x80, key, 0];
-  currentOutput.send(noteOffMsg);
-
-  try{
-      if (!twoarray()&& nowexam.includes(key)) {
-        $(`#key${key}`).css('background','red');
-      //document.getElementById(`key${key}`).style.backgroundColor = "red";
-      } 
-      else if (isblackkey(key)) {
-        $(`#key${key}`).css('background','black');
-          //document.getElementById(`key${key}`).style.backgroundColor = "black";
-      } else {
-        $(`#key${key}`).css('background','ivory');
-          //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-      }
-    }catch(error){
-      if (isblackkey(key)) {
-        $(`#key${key}`).css('background','black');
-          //document.getElementById(`key${key}`).style.backgroundColor = "black";
-      } else {
-        $(`#key${key}`).css('background','ivory');
-          //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-      }
-      }
-  const index = keys.indexOf(notenum);
-  if (index > -1) { // only splice array when item is found
-    keys.splice(index, 1); // 2nd parameter means remove one item only
-  }
-  console.log(keys);
-}
 
 function modulation(){
   m = 0
