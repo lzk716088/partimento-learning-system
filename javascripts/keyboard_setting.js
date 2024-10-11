@@ -74,7 +74,8 @@ function playNote(senderDiv) {
             currentAudio.volume = 0.6;
             currentAudio.play();
     }
-    document.getElementById(senderDiv.id).style.backgroundColor = "blue";
+    $(`#${senderDiv.id}`).css('backgroundColor','blue');
+    //document.getElementById(senderDiv.id).style.backgroundColor = "blue";
     if (Scale == "Rule of Octave Ascending") keys.push(key);
     else if (Scale == "Rule of Octave Descending") keys.push(key);
     try{
@@ -92,8 +93,6 @@ function stopNote(senderDiv) {
     ismousedown = false;
     //senderDiv  = key{num}
     var key = parseInt(senderDiv.id.substring(3));
-    
-    
     if (currentAudio) {
             fadeOutAudio(currentAudio, 100)
         }
@@ -120,7 +119,7 @@ function stopNote(senderDiv) {
 function playNoteMIDI(notenum) {
     var key = parseInt(notenum);
     keys.push(key);
-    document.getElementById(`key${key}`).style.backgroundColor = "blue";
+    $(`#key${key}`).css('backgroundColor','blue');
     var noteOnMsg = [0x90, key, 96];
     currentOutput.send(noteOnMsg);
     console.log(keys);
@@ -142,18 +141,18 @@ function playNoteMIDI(notenum) {
   
     try{
         if (!twoarray()&& nowexam.includes(key)) {
-        document.getElementById(`key${key}`).style.backgroundColor = "red";
+            $(`#key${key}`).css('background','red');
       } 
       else if (isblackkey(key)) {
-          document.getElementById(`key${key}`).style.backgroundColor = "black";
+        $(`#key${key}`).css('background','black');
       } else {
-          document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+        $(`#key${key}`).css('background','ivory');
       }
     }catch(error){
       if (isblackkey(key)) {
-          document.getElementById(`key${key}`).style.backgroundColor = "black";
+        $(`#key${key}`).css('background','black');
       } else {
-          document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+        $(`#key${key}`).css('background','ivory');
       }
   
     }
@@ -171,6 +170,48 @@ function playNoteMIDI(notenum) {
         document.getElementById(keys[i]).querySelector('.number').textContent = '';
       }
     }*/
+    const index = keys.indexOf(notenum);
+    if (index > -1) { // only splice array when item is found
+      keys.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    console.log(keys);
+  }
+
+
+function stopNoteMIDI(notenum) { 
+    try{
+    if (twoarray()) {
+      if (dataindex <7) dataindex++;
+      else dataindex=0;
+      playexam(dataglobal , dataindex);
+    }
+    }catch{}
+  
+    var key = notenum;
+    var noteOffMsg = [0x80, key, 0];
+    currentOutput.send(noteOffMsg);
+  
+    try{
+        if (!twoarray()&& nowexam.includes(key)) {
+          $(`#key${key}`).css('background','red');
+        //document.getElementById(`key${key}`).style.backgroundColor = "red";
+        } 
+        else if (isblackkey(key)) {
+          $(`#key${key}`).css('background','black');
+            //document.getElementById(`key${key}`).style.backgroundColor = "black";
+        } else {
+          $(`#key${key}`).css('background','ivory');
+            //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+        }
+      }catch(error){
+        if (isblackkey(key)) {
+          $(`#key${key}`).css('background','black');
+            //document.getElementById(`key${key}`).style.backgroundColor = "black";
+        } else {
+          $(`#key${key}`).css('background','ivory');
+            //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
+        }
+        }
     const index = keys.indexOf(notenum);
     if (index > -1) { // only splice array when item is found
       keys.splice(index, 1); // 2nd parameter means remove one item only
