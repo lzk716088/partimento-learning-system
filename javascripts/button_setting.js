@@ -5,7 +5,7 @@ function updateImage(selectedValue){
   var sheetlst
   dataindex = 0
   stopexam()
-  button2.innerHTML = orgSvg;
+  $('#showDataButton').html(orgSvg);
   btnstate =0;
   // 根據選擇的值更新圖片路徑
   if (selectedValue === 'Rule of Octave Ascending') {
@@ -44,7 +44,8 @@ function updateImage(selectedValue){
 }
 
 function showButtons() {
-    document.getElementById("buttonWarp").style.display = "flex";
+    $('#buttonWarp').css('display','flex');
+    //document.getElementById("buttonWarp").style.display = "flex";
 }
 $(document).ready(function() {
   $('input[name="value-radio"]').change(function() {
@@ -54,11 +55,6 @@ $(document).ready(function() {
     updateImage(Scale);
   });
 });
-
-// 獲取按鈕元素
-var button1 = document.getElementById("leftButton");
-var button2 = document.getElementById("showDataButton");
-var button3 = document.getElementById("rightButton");
 
 var newSvg = `
   <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`;
