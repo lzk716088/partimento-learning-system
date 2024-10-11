@@ -85,7 +85,7 @@ function startMIDI() {
     document.getElementById("div_keyboard").style.display = "none";
     document.getElementById("div_options").style.display = "none";
     showAlert("error","Error","Your browser does not support the Web MIDI API!")
-    document.getElementById("log_string").innerHTML = "Your browser does not support the Web MIDI API!";
+    $('#log_string').html("Your browser does not support the Web MIDI API!");
   }
   toggleContent();
   selectKeyfunc();
@@ -93,7 +93,7 @@ function startMIDI() {
 //若讀取MIDI成功，開始程式
 function onMIDISuccess(midiAccess) {
   showAlert("success","Sucess","MIDI is ready!")
-  document.getElementById("log_string").innerHTML = "MIDI is ready!";
+  $('#log_string').html("MIDI is ready!");
   midi = midiAccess;
   getcurrentOutput();
   getInput(midiAccess);
@@ -102,7 +102,7 @@ function onMIDISuccess(midiAccess) {
 //讀取MIDI失敗，顯示錯誤訊息
 function onMIDIFailure(msg) {
   showAlert("warning","Warning","No access to MIDI resources. Please check your device or use the mouse directly.")
-  document.getElementById("log_string").innerHTML = "No access to MIDI resources. Error message: " + msg;
+  $('#log_string').html("No access to MIDI resources. Error message: " + msg);
 }
 
 //改變output
@@ -116,22 +116,22 @@ function getInput(midiAccess){
   midiAccess.inputs.forEach((port, key) => {
     const opt = document.createElement("option");
     opt.text = port.name;
-    document.getElementById("midi-inputs").add(opt);
+    $("#midi-inputs").add(opt);
   });
-  document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
+  $("#midi-inputs").change(changeInput(midiAccess))
+  //document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
 }
 
 function changeInput(midiAccess){
-  const inputSelector = document.getElementById("midi-inputs");
-  const inputId = inputSelector.value;
-  let selectedInput = null;
+  //const inputSelector = document.getElementById("midi-inputs");
+  //const inputId = inputSelector.value;
 
   midiAccess.inputs.forEach(function(port) {
     port.onmidimessage = function(event) {
-      if (event.target.name == inputSelector.value && event.data[0]==144 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
+      if (event.target.name == $("#midi-inputs").val() && event.data[0]==144 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
         playNoteMIDI(event.data[1])
       }
-      else if (event.target.name == inputSelector.value && event.data[0] == 128 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
+      else if (event.target.name == $("#midi-inputs").val() && event.data[0] == 128 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
         stopNoteMIDI(event.data[1])
       }
       //console.log(`① = ${event.data[0]} ③ = ${event.data[1]} ⑤ = ${event.data[2]}`);
@@ -151,7 +151,7 @@ function getcurrentOutput() {
       outputsToString += "<option value='" + output.id + "'>" + output.name + "</option>";
     }
   });
-  document.getElementById("chooseOutput").innerHTML = outputsToString;
+  $('#chooseOutput').html(outputsToString);
 }
 
 function pushascending(key){
@@ -403,47 +403,4 @@ function playexam(data,index){
       }
   nowexam=data["Descending"][index];
   };
-}
-function updateImage(selectedValue){
-  var image = document.getElementById('Image');
-  var abc =`M: 4/4\n`+`L: 1/2\n`+`K: C\n`;
-  var sheetlst
-  dataindex = 0
-  stopexam()
-  button2.innerHTML = orgSvg;
-  btnstate =0;
-  // 根據選擇的值更新圖片路徑
-  if (selectedValue === 'Rule of Octave Ascending') {
-    console.log(selectedKey)
-    //image.src = `Ascending/Ascending${selectedKey}.jpg`;
-
-    fetch('../json/sheets.json')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (result) {
-            sheetlst = result;
-
-    lst = sheetlst["Ascending"][selectedKey];
-    abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6\\n3"[${lst[2]}]"6\\n3"[${lst[3]}]|"5\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
-    ABCJS.renderAbc("paper", abc);
-    console.log(abc)
-    });
-
-    
-  } else if (selectedValue === 'Rule of Octave Descending') {
-    image.src = `Descending/Descending${selectedKey}.jpg`;
-    fetch('../json/sheets.json')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (result) {
-            sheetlst = result;
-            lst = sheetlst["Descending"][selectedKey];
-            console.log(lst)
-            abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6#\\n3"[${lst[2]}]"5\\n3"[${lst[3]}]|"6\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
-            ABCJS.renderAbc("paper", abc);
-            console.log(abc)
-        });
-  }
 }
