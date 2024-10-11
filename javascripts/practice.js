@@ -82,8 +82,8 @@ function startMIDI() {
       navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
   } 
   else {
-    document.getElementById("div_keyboard").style.display = "none";
-    document.getElementById("div_options").style.display = "none";
+    $('#div_keyboard').css('display','none');
+    $('#div_option').css('display','none');
     showAlert("error","Error","Your browser does not support the Web MIDI API!")
     $('#log_string').html("Your browser does not support the Web MIDI API!");
   }
@@ -348,16 +348,18 @@ function changeProgram(patch) {
 function stopexam(){
   for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
-        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+        $(`${exnotes[s]}`).css('backgroundColor','black');}
+        //document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else $(`${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
   };
 }
 function playexam(data,index){
   if (exnotes.length>=1){
     for(let s=0;s<exnotes.length;s++){
       if (isblackkey(exnotes[s].substring(3))) {
-        document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-      else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
+        $(`${exnotes[s]}`).css('backgroundColor','black');}
+        //document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
+      else $(`${exnotes[s]}`).css('backgroundColor','ivory');//document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
   };}
   if (Scale == "Rule of Octave Ascending"){
     exnote_lst= data["Ascending"][index];
