@@ -4,49 +4,7 @@
     justify-content: center;
     align-items: center;
 }
-#piano {
-    height: calc(100% - 190px);
-    top: 81px
-}
 
-#piano,#piano piano-roll {
-    position: absolute;
-    width: 100%;
-    left: 0
-}
-
-#piano piano-roll {
-    top: 0;
-    height: 100%
-}
-
-#piano piano-keyboard {
-    position: absolute;
-    width: calc(100% - 80px);
-    bottom: 300px;
-    left: 50%;
-    transform: translateX(-50%)
-}
-
-#piano piano-keyboard[octave-count="2"] {
-    max-width: 520px
-}
-
-#piano piano-keyboard[octave-count="3"] {
-    max-width: 780px
-}
-
-#piano piano-keyboard[octave-count="4"] {
-    max-width: 1040px
-}
-
-#piano piano-keyboard[octave-count="5"] {
-    max-width: 1300px
-}
-
-#piano piano-keyboard[octave-count="6"] {
-    max-width: 1560px
-}
 
 /* 自訂一些樣式 */
 .container {

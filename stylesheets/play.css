@@ -1,3 +1,9 @@
+:root {
+    --widthWhite: calc(100% / 52);
+    --widthBlack: calc(100% / 80);
+    --heightWhite: calc(100vw / 10);
+    --heightBlack: calc(100vw / 14);
+  }
 body {
             height: auto;
             width: auto;
