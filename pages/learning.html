@@ -12,6 +12,11 @@
     <title>Learning - Partimento Learning System</title>
 </head>
 <body>
+    <div id="menu-holder" role="button" tabindex="0" class="collapsed " aria-label="開啟導覽列">
+        <svg id ="menuicon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px" fill="#5f6368"><rect fill="none" height="20" width="20"/><g>
+            <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></g></svg>
+        <span id="app-name">Practice</span>
+    </div>
     <div class="center-container">
         <div class="radio-input">
             <label>
@@ -25,11 +30,20 @@
             <span class="selection" ></span>
         </div>
     </div>
-    <br>
-    
-    <div id="teaching-text" style="display: none;">
-        <h3>教學文本</h3>
-        <p>這裡放置有關 Partimento 的簡單說明...</p>
+    <div class="container">
+    <div id="teaching-text" style="display: none;" >
+        <iframe src="https://www.oxxostudio.tw"
+        frameborder="0"
+        width="100%"
+        height="1000"
+        sandbox="allow-modals allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts">
+        看不到頁面時才會顯示這行文字
+    </iframe>
+        <h3>WHAT YOU SHOULD HAVE LEARNED FIRST</h3>
+        <div >
+            You should already know the most common key signatures, accidentals, the treble and bass clefs,
+            the names of intervals, notes durations, and the other skills involved in reading standard music notation.
+        </div>
     </div>
     
     <div class="container" id="quiz-area" style="display: none;">
@@ -51,7 +65,7 @@
         <!-- 按鈕 -->
         <button class="btn btn-primary" id="submit-answer">提交答案</button>
     </div>
-
+    </div>
     <script src="../javascripts/learning.js"></script>
 </body>
 </html>

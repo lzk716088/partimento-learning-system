@@ -1,3 +1,42 @@
+#menu-holder {
+    position: relative;
+    padding: 20px;
+    width: 200px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 0 10px 10px 10px;
+    background: var(--menu-holder-closed-background, #fff);
+    box-shadow: var(--menu-holder-closed-box-shadow, 0 2px 5px rgba(0, 0,0, 0.3));
+}
+
+#menu-holder:focus {
+    outline: 0;
+}
+
+#menu-holder:focus:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    border: 2px solid #8AB4F8;
+    z-index: 1;
+    margin-top: 0px;
+}
+#app-name {
+
+            font-family: 'BoingSemiBold', Helvetica, Arial, sans-serif;
+            font-size: 24px;
+            line-height: 28px;
+            font-weight: 500;
+            color: black;
+            margin-left: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            opacity:var(--app-name-closed-opacity, 1);
+        }
 .center-container {
     height: 20vh; /* 全螢幕高度 */
     display: flex;
