@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../stylesheets/documents.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <script src="https://img1.ccgxk.com/ccgxk-oss/js/abc.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -17,53 +19,57 @@
             <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></g></svg>
         <span id="app-name">Practice</span>
     </div>
+    <script type="text/javascript">
+        document.getElementById('menu-holder').addEventListener('click', function() {
+        window.location.href = '../index.html';
+    });
+    </script>
     <div class="center-container">
         <div class="radio-input">
             <label>
-            <input value="Documents" name="value-radio" id="option1" type="radio" />
-            <span class="p-2 bd-highlight">Documents</span>
+                <input value="Documents" name="value-radio" id="option1" type="radio" />
+                <span>Documents</span>
             </label>
             <label>
-            <input value="Quiz" name="value-radio" id="option2" type="radio" />
-            <span>Quiz</span>
+                <input value="Quiz" name="value-radio" id="option2" type="radio" />
+                <span>Quiz</span>
             </label>
             <span class="selection" ></span>
         </div>
     </div>
     <div class="container">
     <div id="teaching-text" style="display: none;" >
-        <iframe src="https://www.oxxostudio.tw"
-        frameborder="0"
-        width="100%"
-        height="1000"
-        sandbox="allow-modals allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts">
-        看不到頁面時才會顯示這行文字
-    </iframe>
-        <h3>WHAT YOU SHOULD HAVE LEARNED FIRST</h3>
-        <div >
-            You should already know the most common key signatures, accidentals, the treble and bass clefs,
-            the names of intervals, notes durations, and the other skills involved in reading standard music notation.
-        </div>
+        <form style='height: 80vh;'>
+        <iframe src="document.html"
+            frameborder="0"
+            width="100%"
+            sandbox="allow-modals allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts">
+            看不到頁面時才會顯示這行文字
+        </iframe>
+    </form>
     </div>
     
-    <div class="container" id="quiz-area" style="display: none;">
-        <!-- 進度條 -->
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 0%;" id="progress-bar"></div>
-        </div>
-
+    <div id="quiz-area" style="display: none;">
         <!-- 問題區域 -->
-        <div class="question" id="question-area">
+        <div class="text-center" id="quiz-img">
+            <!-- 圖片將動態加載 -->
+        </div>
+        <div class="question text-center" id="question-area">
             <!-- 問題將動態加載 -->
         </div>
-
         <!-- 答案區域 -->
-        <div class="answer-area">
-            <input type="text" class="form-control" id="user-answer" placeholder="請輸入您的答案">
-        </div>
+        <div class="answer-area text-center" id="answer-area"></div>
 
         <!-- 按鈕 -->
-        <button class="btn btn-primary" id="submit-answer">提交答案</button>
+        <div class="text-center" style="display: none;">
+            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal"
+              data-target="#modalContactForm" id="submit-answer">提交答案</a>
+        </div>
+        
+        <!-- 進度條 -->
+        <div class="progress text-center">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" id="progress-bar"></div>
+        </div>
     </div>
     </div>
     <script src="../javascripts/learning.js"></script>
