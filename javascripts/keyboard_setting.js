@@ -65,6 +65,7 @@ function fadeOutAudio(audio, duration) {
 function playNote(senderDiv) {
     ismousedown = true;
     var key = parseInt(senderDiv.id.substring(3));
+    $(`#${senderDiv.id}`).css('backgroundColor','blue');
     if (soundEnabled){
     if (currentAudio) {
                 currentAudio.pause();
@@ -74,7 +75,7 @@ function playNote(senderDiv) {
             currentAudio.volume = 0.6;
             currentAudio.play();
     }
-    $(`#${senderDiv.id}`).css('backgroundColor','blue');
+    
     //document.getElementById(senderDiv.id).style.backgroundColor = "blue";
     if (Scale == "Rule of Octave Ascending") keys.push(key);
     else if (Scale == "Rule of Octave Descending") keys.push(key);
@@ -93,15 +94,16 @@ function stopNote(senderDiv) {
     ismousedown = false;
     //senderDiv  = key{num}
     var key = parseInt(senderDiv.id.substring(3));
-    if (currentAudio) {
-            fadeOutAudio(currentAudio, 100)
-        }
     if (isblackkey(key)) $(`#${senderDiv.id}`).css('background-color' , 'black');
     else $(`#${senderDiv.id}`).css('background-color' , 'ivory');
     for (element in keys){
         if (isblackkey(key)) $(`#${senderDiv.id}`).css('background-color' , 'black');
         else  $(`#${senderDiv.id}`).css('background-color' , 'ivory');
     }
+    if (currentAudio) {
+            fadeOutAudio(currentAudio, 100)
+        }
+    
     try {
         var noteOffMsg = [0x80, key, 0];
         currentOutput.send(noteOffMsg);
