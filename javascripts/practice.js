@@ -51,7 +51,14 @@ function toggleContent(){
     });
   });
 }
-
+function selectKeyfunc(){
+  const selectKey = document.getElementById("selectkey");
+  selectKey.addEventListener("change", function() {
+    selectedKey = selectKey.value;
+    console.log("Key：" + selectedKey);
+    updateImage(Scale)
+});
+}
 //判斷該鍵是否為黑鍵
 
 function isblackkey(key){
@@ -115,9 +122,10 @@ function getInput(midiAccess){
     const opt = document.createElement("option");
     opt.text = port.name;
     $("#midi-inputs").add(opt);
+    document.getElementById("midi-inputs").add(opt);
   });
   $("#midi-inputs").change(changeInput(midiAccess))
-  //document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
+  document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
 }
 
 function changeInput(midiAccess){

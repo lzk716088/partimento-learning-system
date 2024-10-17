@@ -97,21 +97,23 @@ function getInput(midiAccess){
     const opt = document.createElement("option");
     opt.text = port.name;
     $("#midi-inputs").add(opt);
+    document.getElementById("midi-inputs").add(opt);
   });
   $("#midi-inputs").change(changeInput(midiAccess))
-  //document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
+  document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
 }
 
 function changeInput(midiAccess){
-  //const inputSelector = document.getElementById("midi-inputs");
-  //const inputId = inputSelector.value;
+  const inputSelector = document.getElementById("midi-inputs");
+  const inputId = inputSelector.value;
+  let selectedInput = null;
 
   midiAccess.inputs.forEach(function(port) {
     port.onmidimessage = function(event) {
-      if (event.target.name == $("#midi-inputs").val() && event.data[0]==144 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
+      if (event.target.name == inputSelector.value && event.data[0]==144 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
         playNoteMIDI(event.data[1])
       }
-      else if (event.target.name == $("#midi-inputs").val() && event.data[0] == 128 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
+      else if (event.target.name == inputSelector.value && event.data[0] == 128 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
         stopNoteMIDI(event.data[1])
       }
       //console.log(`① = ${event.data[0]} ③ = ${event.data[1]} ⑤ = ${event.data[2]}`);

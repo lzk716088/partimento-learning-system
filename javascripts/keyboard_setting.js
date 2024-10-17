@@ -125,6 +125,15 @@ function playNoteMIDI(notenum) {
     var noteOnMsg = [0x90, key, 96];
     currentOutput.send(noteOnMsg);
     console.log(keys);
+    if (soundEnabled){
+    if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio(`../88-keys/${key}.wav`);
+            currentAudio.volume = 0.6;
+            currentAudio.play();
+    }
   }
 
   function stopNoteMIDI(notenum) { 
