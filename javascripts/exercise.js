@@ -125,32 +125,39 @@ function updateExercise(name){
     case "exercise1":
       abc+=`L: 1/4\nK: F\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F2!fermata!z2|]`;
       break;
-    case "exercise1_ans":
-      abc+=`L: 1/4\nK: F\nV: RH clef=treble\n[cA][cA][cG][cA]|[Gd][Fd][Fc][Ec]|[Ac][Gd][Ge][Gf]|[Ge][Gc][Dc][F=B]|[Ec][ce][^Fe][F^d]|[Ge][=Be][A^d][Ge]|[^f=B][Ge][^Fe][A^d]|\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nV: RH clef=treble\n[Ge][^G=B][EA][Ec]|[Ed][Ec][A=B][^GB]|[Ac][Ec][Dc][G=B]|[Ec][GA][G=B][^FA]|[=B,G][D^G][^CA][CA]|[DA][DF][DE][^CE]|[DF][FA][FG][EG]|\nV: LH clef=bass\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nV: RH clef=treble\n[FA][Dc][Ec][D=B]|[Ec][Ec][^Fc][G=B]|[Dc][D=B][GA][^FA]|[=B,G][D^G][^CA][DF]|[DE][DE][DF][^CE]|\nV: LH clef=bass\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nV: RH clef=treble\n[DF][FA][FG][EG]|[FA][Gc][Ac][FA]|[FG][FG][FA][EG]|[FA][Fc][FG][FG]|[EG][FA][G][E]|[A,F]2!fermata!z2|]\nV: LH clef=bass\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F,2!fermata!z2|]`;
+    case "exercise2":
+      abc+=`L: 1/4\nK: C\nV: LH clef=bass\nF,F,A,A,|G,G,_B,_B,|A,A,CC|_B,/A,/G,/F,/E,E,|A,/G,/F,/E,/D,D,|G,/F,/E,/D,/C,C,|F,/G,/A,/F,/G,G,,|\nC,C,E,E,|D,D,F,F,|E,E,G,G,|F,F,A,A,|G,/=B,/C/F,/G,G,,|C,z/E,/ F,/F,,/z/ ^F,/|G,/G,,/z/ ^G,/ A,/A,,/ z/ A,/|\n^G,/E,/ z/ G,/ A,/A,,/ z/ G,/|A,/A,,/ z/ C,/ D,/E,/F,/D,/|E,E,,A,,z/A,/|^F,z/D,/G,z/G,/|E,z/C,/F,F,|A,A,G,G,|_B,B,A,A,|\nCC_B,B,|DDC/_B,/A,/B,/|CC,F,/F,,/z/ F,/|E,/C,/ z/E,/ F,/F,,/z/ F,/|E,/C,/z/ E,/ F,/G,/A,/_B,/|CC,!fermata!F,2|]`
       break;
   }
   console.log(abc);
-  ABCJS.renderAbc("paper", abc);
+  ABCJS.renderAbc("paper", abc, {
+    staffwidth: 1000,scale: 0.7});
 }
 
 $(document).ready(function() {
   let currentExercise = 1;
   updateExercise(`exercise${currentExercise}`);
-  $('#toggle-answer').on('click', function() {
-    let $button = $(this); // 獲取按鈕元素
-    let exercise = $button.data('exercise'); // 獲取當前的練習編號
+  
+});
 
-    if ($button.text() === "Show Answer") {
-        // 切換到答案顯示
-        updateExercise(`exercise${exercise}_ans`);
-        $button.text("Hide Answer"); // 切換按鈕文字
-    } else {
-        // 切換回原本的練習
-        updateExercise(`exercise${exercise}`);
-        $button.text("Show Answer"); // 切換按鈕文字
+function openHint(){
+  var selectedEercise = $('#exerciseSelect').val();
+    console.log(selectedEercise);
+    switch(selectedEercise){
+      case "exercise1":
+        var abc =`M: 4/4\n`;
+        abc+=`L: 1/4\nK: F\nV: RH clef=treble\n[cA][cA][cG][cA]|[Gd][Fd][Fc][Ec]|[Ac][Gd][Ge][Gf]|[Ge][Gc][Dc][F=B]|[Ec][ce][^Fe][F^d]|[Ge][=Be][A^d][Ge]|[^f=B][Ge][^Fe][A^d]|\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nV: RH clef=treble\n[Ge][^G=B][EA][Ec]|[Ed][Ec][A=B][^GB]|[Ac][Ec][Dc][G=B]|[Ec][GA][G=B][^FA]|[=B,G][D^G][^CA][CA]|[DA][DF][DE][^CE]|[DF][FA][FG][EG]|\nV: LH clef=bass\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nV: RH clef=treble\n[FA][Dc][Ec][D=B]|[Ec][Ec][^Fc][G=B]|[Dc][D=B][GA][^FA]|[=B,G][D^G][^CA][DF]|[DE][DE][DF][^CE]|\nV: LH clef=bass\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nV: RH clef=treble\n[DF][FA][FG][EG]|[FA][Gc][Ac][FA]|[FG][FG][FA][EG]|[FA][Fc][FG][FG]|[EG][FA][G][E]|[A,F]2!fermata!z2|]\nV: LH clef=bass\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F,2!fermata!z2|]`; 
+        ABCJS.renderAbc("hint", abc, {
+          staffwidth: 400,scale: 0.4});
+        break;
+      case "exercise2":
+        var abc = `M: 4/4\n`;
+        abc+=`L: 1/8\nK: C\nV: RH clef=treble\nz4zcdc|c2_B2zded|d2c2zefe|dc_BA GGg2||\nV: LH clef=bass\nL:1/4\nF,F,A,A,|G,G,_B,_B,|A,A,CC|_B,/A,/G,/F,/E,E,||`;
+        ABCJS.renderAbc("hint", abc, {
+          staffwidth: 400,scale: 0.4});
+        break;
     }
-});
-});
+}
 
 function getcurrentOutput() {
   var outputsToString = "";

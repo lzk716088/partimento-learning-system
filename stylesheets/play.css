@@ -173,33 +173,37 @@ div {
   cursor:default;
 }
 div.white_key {
-  clear:none;
-  height:100px;
-  width:38px;
-  border:#000 solid 1px;
-  background-color:ivory;
-  float:left;
-  cursor:pointer;
-  position:relative;
-  z-index: 1;
-}
-div.white_key:hover {
-            box-shadow: 0px 2px 9px rgba(0,0,0,0.30);
-        }
-
-div.black_key {
-  position:absolute;
-  height:50px;
-  width:20px;
-  border:#000 solid 1px;
-  background-color:black;
-  cursor:pointer;
-
-  z-index: 2;
-}
-div.black_key:hover {
-    box-shadow: 0px 2px 9px rgba(0,0,0,0.30);
-}
+    clear: none !important;
+    height: 100px !important;
+    width: 38px !important;
+    border: #000 solid 1px !important;
+    background-color: ivory !important;
+    float: left !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 1 !important;
+    box-sizing: content-box !important; /* 確保邊框不影響寬度計算 */
+  }
+  
+  div.white_key:hover {
+    box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.30) !important;
+  }
+  
+  div.black_key {
+    position: absolute !important;
+    height: 50px !important;
+    width: 20px !important;
+    border: #000 solid 1px !important;
+    background-color: black !important;
+    cursor: pointer !important;
+    z-index: 2 !important;
+    box-sizing: content-box !important; /* 確保邊框不影響寬度計算 */
+  }
+  
+  div.black_key:hover {
+    box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.30) !important;
+  }
+  
 
 .container {
     display: flex;
