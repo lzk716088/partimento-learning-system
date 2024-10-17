@@ -177,7 +177,7 @@ div.white_key {
     height: 100px !important;
     width: 38px !important;
     border: #000 solid 1px !important;
-    background-color: ivory !important;
+    background-color: ivory;
     float: left !important;
     cursor: pointer !important;
     position: relative !important;
@@ -194,7 +194,7 @@ div.white_key {
     height: 50px !important;
     width: 20px !important;
     border: #000 solid 1px !important;
-    background-color: black !important;
+    background-color: black;
     cursor: pointer !important;
     z-index: 2 !important;
     box-sizing: content-box !important; /* 確保邊框不影響寬度計算 */
