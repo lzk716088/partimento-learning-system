@@ -9,14 +9,17 @@ $('input[name="value-radio"]').change(function() {
     } else {
         $('#teaching-text').hide();
         $('#quiz-area').show();
-        currentQuestionIndex = 0;
-        correctAnswers = 0;
-        updateProgress();
-        loadQuestion();
+        reloadquiz();
         
     }
 });
 
+function reloadquiz(){
+    currentQuestionIndex = 0;
+    correctAnswers = 0;
+    updateProgress();
+    loadQuestion();
+}
 function resizeIframe(obj) {
     obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
 }
@@ -107,21 +110,20 @@ function loadQuestion() {
         // 設置按鈕點擊事件
         $('.option-button').on('click', function() {
             const selectedAnswer = $(this).data('answer'); // 獲取選擇的答案
-        
             if (selectedAnswer) {
                 if (selectedAnswer === questions[currentQuestionIndex].answer) {
                     correctAnswers++;
                     Swal.fire({
                         icon: 'success',
-                        title: '正確!',
+                        title: 'Correct!',
                         showConfirmButton: false,
                         timer: 1500
                     });
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: '錯誤!',
-                        text: '正確答案是 ' + questions[currentQuestionIndex].answer,
+                        title: 'Wrong!',
+                        text: 'Correct answer is ' + questions[currentQuestionIndex].answer,
                         showConfirmButton: true
                     });
                 }
@@ -134,12 +136,19 @@ function loadQuestion() {
                 if (currentQuestionIndex < questions.length) {
                     loadQuestion();
                 } else {
+                    $('#answer-area').empty();
+                    $('#quiz-img').empty();
+                    $('#question-area').text(`你已完成 ${questions.length} 道題目，答對了 ${correctAnswers} 題！`);
+                    $('#answer-area').append(`
+                        <button class="btn btn-secondary option-button text-center" onClick="reloadquiz()">重新測驗</button><br/><br/>
+                    `);
+                    /*
                     Swal.fire({
                         title: '恭喜！',
                         text: `你已完成 ${questions.length} 道題目，答對了 ${correctAnswers} 題！`,
                         icon: 'success',
                         confirmButtonText: '完成'
-                    });
+                    });*/
                 }
         
                 // 清除選擇

@@ -22,7 +22,7 @@ var exnote_lst=[]
 var exnotes=[]
 var selectedKey = "C"
 var selectedE = "exercise1" 
-
+var currentAudio=null;
 const showAlert = (i,t,txt) => {
             Swal.fire({
                 icon: i,
@@ -96,22 +96,22 @@ function getInput(midiAccess){
   midiAccess.inputs.forEach((port, key) => {
     const opt = document.createElement("option");
     opt.text = port.name;
-    document.getElementById("midi-inputs").add(opt);
+    $("#midi-inputs").add(opt);
   });
-  document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
+  $("#midi-inputs").change(changeInput(midiAccess))
+  //document.getElementById("midi-inputs").addEventListener("change", changeInput(midiAccess));
 }
 
 function changeInput(midiAccess){
-  const inputSelector = document.getElementById("midi-inputs");
-  const inputId = inputSelector.value;
-  let selectedInput = null;
+  //const inputSelector = document.getElementById("midi-inputs");
+  //const inputId = inputSelector.value;
 
   midiAccess.inputs.forEach(function(port) {
     port.onmidimessage = function(event) {
-      if (event.target.name == inputSelector.value && event.data[0]==144 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
+      if (event.target.name == $("#midi-inputs").val() && event.data[0]==144 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
         playNoteMIDI(event.data[1])
       }
-      else if (event.target.name == inputSelector.value && event.data[0] == 128 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
+      else if (event.target.name == $("#midi-inputs").val() && event.data[0] == 128 && event.data[1]>=minkeynum && event.data[1] <= maxkeynum){
         stopNoteMIDI(event.data[1])
       }
       //console.log(`① = ${event.data[0]} ③ = ${event.data[1]} ⑤ = ${event.data[2]}`);
@@ -119,7 +119,19 @@ function changeInput(midiAccess){
     };
   });
 }
-
+function updateExercise(name){
+  var abc =`M: 4/4\n`+`L: 1/2\n`;
+  switch (name){
+    case "exercise1":
+      abc+=`K: F\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F2!fermata!z2|]`;
+      break;
+  }
+  console.log(abc);
+  ABCJS.renderAbc("paper", abc);
+}
+$(document).ready(function() {
+  updateExercise('exercise1');
+});
 function getcurrentOutput() {
   var outputsToString = "";
   midi.outputs.forEach(function (output, key) {
@@ -131,202 +143,16 @@ function getcurrentOutput() {
       outputsToString += "<option value='" + output.id + "'>" + output.name + "</option>";
     }
   });
-  document.getElementById("chooseOutput").innerHTML = outputsToString;
-}
-
-function pushascending(key){
-  var k=[]
-  k.push(key);
-  if (key%12 == 2){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+9;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else if (key%12 == 4 || key%12 == 9){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+8;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else if (key%12 == 5){
-    key2 = key+4;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+9;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else if (key%12 == 11){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+6;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else{
-    key2 = key+4;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+7;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  k.push(key2);
-  k.push(key3);
-  if (key%12 ==0 ||key%12==7) var sig =["①","③","⑤"];
-  else sig=["①","③","⑥"];
-  
-  keys.push(`key${key}`);
-  keys.push(`key${key2}`);
-  keys.push(`key${key3}`);
-  console.log(keys)
-  for (i=0;i<keys.length;i++){
-    if (isblackkey(k[i])){
-    //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number_b').textContent = sig[i];
-    }
-  else{
-    //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number').textContent = sig[i];
-    }
-  }
-  console.log(keys)
-} 
-
-function pushdescending(key){
-  var k=[]
-  k.push(key);
-  if (key%12 == 2){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+5;
-    if (key3 >maxkeynum) key3-=12;
-    key4 = key+9;
-    if (key4 >maxkeynum) key4-=12;
-  }
-  else if (key%12 == 4){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+8;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else if (key%12 == 5){
-    key2 = key+4;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+9;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else if (key%12 == 9){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+5;
-    if (key3 >maxkeynum) key3-=12;
-    key4 = key+10;
-    if (key4 >maxkeynum) key4-=12;
-  }
-  else if (key%12 == 11){
-    key2 = key+3;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+6;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  else{
-    key2 = key+4;
-    if (key2 >maxkeynum) key2-=12;
-    key3 = key+7;
-    if (key3 >maxkeynum) key3-=12;
-  }
-  k.push(key2);
-  k.push(key3);
-  if (key%12 ==0 ||key%12==7) var sig =["①","③","⑤"];
-  else sig=["①","③","⑥"];
-  
-  keys.push(`key${key}`);
-  keys.push(`key${key2}`);
-  keys.push(`key${key3}`);
-  if (key%12 ==2 ||key%12==9) {
-    keys.push(`key${key4}`);
-    sig =["①","③","④","⑥"]
-  }
-  console.log(keys)
-  for (i=0;i<keys.length;i++){
-    if (isblackkey(k[i])){
-      var noteOnMsg = [0x90, k[i], 96];
-      currentOutput.send(noteOnMsg);
-    //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number_b').textContent = sig[i];
-    }
-  else{
-    //document.getElementById(keys[i]).style.backgroundColor = "blue";
-    document.getElementById(keys[i]).querySelector('.number').textContent = sig[i];
-    }
-  }
-  console.log(keys);
-} 
-
-function playNote(senderDiv) {
-  var key = senderDiv.id.substring(3);
-  key = parseInt(key);
-  console.log(Scale);
-  document.getElementById(senderDiv.id).style.backgroundColor = "blue";
-  if (Scale == "Rule of Octave Ascending") pushascending(key);
-  else if (Scale == "Rule of Octave Descending") pushdescending(key);
-  var noteOnMsg = [0x90, key, 96];
-  currentOutput.send(noteOnMsg);
-  console.log(keys)
-}
-
-function playNoteMIDI(notenum) {
-  var key = parseInt(notenum);
-  keys.push(key);
-  document.getElementById(`key${key}`).style.backgroundColor = "blue";
-  var noteOnMsg = [0x90, key, 96];
-  currentOutput.send(noteOnMsg);
-  console.log(keys);
-}
-
-function stopNote(senderDiv) { 
-
-  var key = senderDiv.id.substring(3);
-  var noteOffMsg = [0x80, key, 0];
-  currentOutput.send(noteOffMsg);
-  if (isblackkey(key)) document.getElementById(senderDiv.id).style.backgroundColor = "black";
-  else document.getElementById(senderDiv.id).style.backgroundColor = "ivory";
-  for (let i=0;i<keys.length;i++){
-    let note = keys[i].substring(3);
-    var noteOnMsg = [0x90, note, 96];
-    currentOutput.send(noteOnMsg);
-    if (isblackkey(note)){
-      document.getElementById(keys[i]).style.backgroundColor = "black";
-      document.getElementById(keys[i]).querySelector('.number_b').textContent = '';
-    }
-    else
-    {
-      document.getElementById(keys[i]).style.backgroundColor = "ivory";
-      document.getElementById(keys[i]).querySelector('.number').textContent = '';
-    }
-
-  }
-  keys=[]
-}
-
-
-function modulation(){
-  m = 0
-  if (selectedKey == "C")  m=0;
-  if (selectedKey == "C#/Db")  m=1;
-  if (selectedKey == "D")  m=2;
-  if (selectedKey == "D#/Eb")  m=3;
-  if (selectedKey == "E")  m=4;
-  if (selectedKey == "F")  m=5;
-  if (selectedKey == "F#/Gb")  m=6;
-  if (selectedKey == "G")  m=7;
-  if (selectedKey == "G#/Ab")  m=8;
-  if (selectedKey == "A")  m=9;
-  if (selectedKey == "A#/Bb")  m=10;
-  if (selectedKey == "B")  m=11;
-  return m;
+  $('#chooseOutput').html(outputsToString);
 }
 
 function changeProgram(patch) {
   var allNotesOffMsg = [176, 123, 0];  // 176 corrisponde a 0xB0 (Control Change, channel 1, All Notes Off)
   var programChangeMsg = [192, patch]; // 192 corrisponde a 0xC0 (Program Change, channel 1, Program Change)
-  currentOutput.send(allNotesOffMsg);
-  currentOutput.send(programChangeMsg);
+  try{
+    currentOutput.send(allNotesOffMsg);
+    currentOutput.send(programChangeMsg);
+  }catch{}
+  
 }
+

@@ -52,8 +52,6 @@ function toggleContent(){
   });
 }
 
-
-
 //判斷該鍵是否為黑鍵
 
 function isblackkey(key){

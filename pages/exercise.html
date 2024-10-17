@@ -53,153 +53,16 @@
     <!--button id="showexercise">Show</button-->
   </div>
   <script type="text/javascript">
-    var exerciseselect = document.getElementById("exerciseSelect");
-    exerciseselect.addEventListener("change", function() {
-      
-      selectedE = exerciseselect.value;
-      console.log(selectedE)
-      updateImage(selectedE);
+    $("#exerciseSelect").on("change",function(){
+    selectedE = $(this).val();
+    console.log(selectedE)
+    updateExercise(selectedE);
     });
   </script>
-  <!--ButtonWarp-->
-
-  <div class="buttonwarp">
-          <div class="playbutton" id="leftButton">
-          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path  d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg> 
-          </div>
-          <div class="playbutton" id="showDataButton">
-          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div class="playbutton" id="rightButton">
-          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
-          </div>
-  </div>
-  <script type="text/javascript">
-    function stopexam(){
-          for(let s=0;s<exnotes.length;s++){
-              if (isblackkey(exnotes[s].substring(3))) {
-                document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-              else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
-          };
-          dataindex=0;
-          btnstate=0;
-          button2.innerHTML = orgSvg;
-        }
-    function playexam(data,index){
-        if (exnotes.length>=1){
-          for(let s=0;s<exnotes.length;s++){
-            if (isblackkey(exnotes[s].substring(3))) {
-              document.getElementById(`${exnotes[s]}`).style.backgroundColor = "black";}
-            else document.getElementById(`${exnotes[s]}`).style.backgroundColor = "ivory";
-        };}
-          exnote_lst= data[selectedE][index];
-          exnotes=[];
-          for(let j=0;j<exnote_lst.length;j++){
-            exnote = data[selectedE][index][j];
-            exnote += modulation();
-            if (exnote > maxkeynum) exnote -=12;
-            exnotes.push(`key${exnote}`);
-            //document.getElementById(`key${exnote}`).style.backgroundColor = "red";
-            if (soundEnabled){
-                    currentAudio = new Audio(`../88-keys/${exnote}.wav`);
-                    currentAudio.volume = 0.2;
-                    currentAudio.play();
-              }
-          };
-        console.log(data[selectedE][index]);
-        nowexam=data[selectedE][index];
-        
-      }
-  </script>
-  <script>
-        // 獲取按鈕元素
-        var button1 = document.getElementById("leftButton");
-        var button2 = document.getElementById("showDataButton");
-        var button3 = document.getElementById("rightButton");
-
-        var newSvg = `
-          <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 6h12v12H6z"/></svg>`;
-        var orgSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M8 5v14l11-7z"/></svg>`;
-
-        var btnstate=0;
-        // 添加點擊事件監聽器
-        button1.addEventListener("click", function() {
-            fetch('../json/exercise_data.json')
-            .then(response => response.json()) 
-            .then(data => {
-                if (btnstate ==1){
-                  dataglobal = data;
-                  if (dataindex <=0) dataindex=7;
-                  else dataindex--;
-                  playexam(data , dataindex);
-                  console.log(`${data} ${dataindex}`)
-              }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-
-        button2.addEventListener("click", function() {
-            fetch('../json/exercise_data.json')
-            .then(response => response.json()) 
-            .then(data => {
-                dataglobal = data;
-                dataindex=0;
-                if (btnstate ==0) 
-                  {
-                    button2.innerHTML = newSvg;
-                    btnstate =1;
-                    playexam(data , dataindex);
-                  }
-                else
-                {
-                  button2.innerHTML = orgSvg;
-                    btnstate =0;
-                    stopexam();
-                }
-                
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-
-        button3.addEventListener("click", function() {
-            fetch('../json/exercise_data.json')
-            .then(response => response.json()) 
-            .then(data => {
-              if (btnstate ==1){
-                dataglobal = data;
-                if (dataindex >=7) dataindex=0;
-                else dataindex++;
-                playexam(data , dataindex);
-                console.log(`${data} ${dataindex}`)
-              }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
-
   <!--ABC here-->
   
   <div id="paper" style="display:block"></div>
-    <script src="https://img1.ccgxk.com/ccgxk-oss/js/abc.js" type="text/javascript"></script>
-      <script type="text/javascript">
-            function updateImage(selectedValue){
-            var image = document.getElementById('Image');
-            // 根據選擇的值更新圖片路徑
-              image.src = `../imgs/${selectedValue}.jpg`;
-              stopexam();
-            
-          }
-      </script>
-  
-  <img id="Image" src="../imgs/exercise1.jpg"><br>
   <pre id="jsonDataDisplay"></pre>
-
   <!--PlayButton-->
 
   <div class="playbutton" id ="mute" onclick="mute()">
