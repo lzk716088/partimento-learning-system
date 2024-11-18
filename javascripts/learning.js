@@ -38,7 +38,7 @@ let questions = [
     },
     {
         img: 'M: 4/4\nL: 1/2\nK: E\n[^GBe]|',
-        question: 'What number is this root？',
+        question: 'What number is this root?',
         options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
         answer: "8 3 6"
     }
