@@ -57,7 +57,6 @@ svg.abcjs {
   </script>
   <script src="../javascripts/exercise.js"></script>
   <div >
-    
     <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -68,9 +67,37 @@ svg.abcjs {
                 <span aria-hidden="true" class="text-white">&times;</span>
               </button>
             </div>
+
             <div class="modal-body mx-3">
               <!--<label class="text-white text-center">Exercise1</label>-->
-              <div id="hint"></div>
+              <!-- 分頁導航 -->
+              <ul class="nav nav-tabs" id="hintTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="exercise1-tab" data-toggle="tab" href="#exercise1-content" role="tab"
+                        aria-controls="exercise1-content" aria-selected="true">Exercise 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="exercise2-tab" data-toggle="tab" href="#exercise2-content" role="tab"
+                        aria-controls="exercise2-content" aria-selected="false">Exercise 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="exercise3-tab" data-toggle="tab" href="#exercise3-content" role="tab"
+                        aria-controls="exercise3-content" aria-selected="false">Exercise 3</a>
+                </li>
+              </ul>
+              <!-- 分頁內容 -->
+              <div class="tab-content" id="hintTabContent">
+                <div class="tab-pane fade show active" id="hint1" role="tabpanel" aria-labelledby="exercise1-tab">
+                    <p>這是 Exercise 的提示內容。</p>
+                </div>
+                <div class="tab-pane fade" id="hint2" role="tabpanel" aria-labelledby="exercise2-tab">
+                    <p>這是 Exercise 的提示內容。</p>
+                </div>
+                <div class="tab-pane fade" id="hint3" role="tabpanel" aria-labelledby="exercise3-tab">
+                    <p>這是 Exercise 的提示內容。</p>
+                </div>
+              </div>
+              <!--<div id="hint"></div>-->
             </div>
             <div class="modal-footer d-flex justify-content-center ">
               <!-- <i class="fas fa-paper-plane-o ml-1"></i> -->
@@ -79,10 +106,58 @@ svg.abcjs {
         </div>
       </div>
       <div class="text-center">
-        
       </div>
   </div>
-  
+
+  <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Hint</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body mx-3">
+                <!-- 分頁導航 -->
+                <ul class="nav nav-tabs" id="hintTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="exercise1-tab" data-toggle="tab" href="#exercise1-content" role="tab"
+                            aria-controls="exercise1-content" aria-selected="true">Exercise 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="exercise2-tab" data-toggle="tab" href="#exercise2-content" role="tab"
+                            aria-controls="exercise2-content" aria-selected="false">Exercise 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="exercise3-tab" data-toggle="tab" href="#exercise3-content" role="tab"
+                            aria-controls="exercise3-content" aria-selected="false">Exercise 3</a>
+                    </li>
+                </ul>
+
+                <!-- 分頁內容 -->
+                <div class="tab-content" id="hintTabContent">
+                    <div class="tab-pane fade show active" id="exercise1-content" role="tabpanel" aria-labelledby="exercise1-tab">
+                        <p>這是 Exercise 1 的提示內容。</p>
+                    </div>
+                    <div class="tab-pane fade" id="exercise2-content" role="tabpanel" aria-labelledby="exercise2-tab">
+                        <p>這是 Exercise 2 的提示內容。</p>
+                    </div>
+                    <div class="tab-pane fade" id="exercise3-content" role="tabpanel" aria-labelledby="exercise3-tab">
+                        <p>這是 Exercise 3 的提示內容。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <!-- 其他按鈕 -->
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
   <div id ="block-holder">
   <p id="log_string" style="display:none"></p>
   <div id ="projects-holder" class="button-container">
