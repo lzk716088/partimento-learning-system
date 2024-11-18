@@ -86,7 +86,6 @@ function playNote(senderDiv) {
     catch (error){
         console.log("Cannot read MIDI Output.");
     }
-    
     console.log(keys)
 }
 
