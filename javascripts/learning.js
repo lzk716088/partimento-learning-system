@@ -10,7 +10,6 @@ $('input[name="value-radio"]').change(function() {
         $('#teaching-text').hide();
         $('#quiz-area').show();
         reloadquiz();
-        
     }
 });
 
@@ -44,7 +43,6 @@ let questions = [
         answer: "8 3 6"
     }
 ];
-
 
 $('#submit-answer').on('click', function() {
     let selectedAnswer = $('.option-button.active').data('answer'); // 獲取選擇的答案

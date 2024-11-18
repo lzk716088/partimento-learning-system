@@ -18,13 +18,11 @@ function updateImage(selectedValue){
         })
         .then(function (result) {
             sheetlst = result;
-
-    lst = sheetlst["Ascending"][selectedKey];
-    abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6\\n3"[${lst[2]}]"6\\n3"[${lst[3]}]|"5\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
-    ABCJS.renderAbc("paper", abc);
-    console.log(abc)
-    });
-
+            lst = sheetlst["Ascending"][selectedKey];
+            abc+=`"5\\n3"[${lst[0]}]"6\\n3"[${lst[1]}]|"6\\n3"[${lst[2]}]"6\\n3"[${lst[3]}]|"5\\n3"[${lst[4]}]"6\\n3"[${lst[5]}]|"6\\n3"[${lst[6]}]"5\\n3"[${lst[7]}]:|`;
+            ABCJS.renderAbc("paper", abc);
+            console.log(abc)
+        });
     
   } else if (selectedValue === 'Rule of Octave Descending') {
     image.src = `Descending/Descending${selectedKey}.jpg`;
