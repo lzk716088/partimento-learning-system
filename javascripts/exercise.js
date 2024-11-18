@@ -72,7 +72,7 @@ function startMIDI() {
 }
 //若讀取MIDI成功，開始程式
 function onMIDISuccess(midiAccess) {
-  showAlert("success","Sucess","MIDI is ready!")
+  showAlert("success","Success","MIDI is ready!")
   document.getElementById("log_string").innerHTML = "MIDI is ready!";
   midi = midiAccess;
   getcurrentOutput();
