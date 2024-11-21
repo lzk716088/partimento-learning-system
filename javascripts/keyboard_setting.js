@@ -44,7 +44,7 @@ function mute(){
 }
 
 function fadeOutAudio(audio, duration) {
-    const fadeSteps = 50; // 将淡出分为100步
+    const fadeSteps = 200; // 将淡出分为100步
     const fadeInterval = duration / fadeSteps; // 每步间隔时间
     const fadeStep = audio.volume / fadeSteps; // 每步减少的音量
 

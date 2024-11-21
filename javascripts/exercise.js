@@ -139,8 +139,7 @@ function updateExercise(name){
     case "exercise3":
       $('#hintbtn').hide();
       var abc =``;
-      abc +=`M: 4/4\nL: 1/4\nK: F\nV: LH clef=bass\nC,2C2A,2B,2|G,2A,2F,2G,2|E,C,(C2C2)B,G,|D,8|G,2_B,B, A,A, G,G,|F,F, D,D, A,,4|D,2DD _B,B, CC|\nA,A,_B,B, G,G,A,A,|F,D, DC =B,B, G,G,|CC, CB, A,A, B,A,|G,G,A,G, F,D,G,F,|\nE,C,CC F,G,A,F,|G,F,E,C, B,,B,,C,C,|G,2G,2G,2G,2|C,4!fermata!z4|]`;
-
+      abc +=`\nL: 1/8\nK: F\nV: LH clef=bass\nC,2C2A,2B,2|G,2A,2F,2G,2|E,C,(C2C2)B,G,|D,8|G,2_B,B, A,A, G,G,|F,F, D,D, A,,4|D,2DD _B,B, CC|\nA,A,_B,B, G,G,A,A,|F,D, DC =B,B, G,G,|CC, CB, A,A, B,A,|G,G,A,G, F,D,G,F,|\nE,C,CC F,G,A,F,|G,F,E,C, B,,B,,C,C,|G,2G,2G,2G,2|C,4!fermata!z4|]`;
   }
   console.log(abc);
   ABCJS.renderAbc("paper", abc, {
@@ -183,7 +182,7 @@ function openHint(){
       case "exercise3":
         $('#hintbtn').css({'background-color': '#007bff'})
         var abc = `M: 4/4\n`;
-        abc+=`L: 1/8\nK: C\nV: RH clef=treble\nz4zcdc|c2_B2zded|d2c2zefe|dc_BA GGg2||\nV: LH clef=bass\nL:1/4\nF,F,A,A,|G,G,_B,_B,|A,A,CC|_B,/A,/G,/F,/E,E,||`;
+        abc+=`K:\nV: LH clef=bass\nL:1/4\nF,F,A,A,|G,G,_B,_B,|A,A,CC|_B,/A,/G,/F,/E,E,||`;
         //ABCJS.renderAbc("hint1-content", abc, {
         //  staffwidth: 400,scale: 0.4});
         $('#exercise2-tab').hide();
