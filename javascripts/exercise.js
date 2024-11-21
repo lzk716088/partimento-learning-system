@@ -149,14 +149,18 @@ function openHint(){
       case "exercise1":
         var abc =`M: 4/4\n`;
         abc+=`L: 1/4\nK: F\nV: RH clef=treble\n[cA][cA][cG][cA]|[Gd][Fd][Fc][Ec]|[Ac][Gd][Ge][Gf]|[Ge][Gc][Dc][F=B]|[Ec][ce][^Fe][F^d]|[Ge][=Be][A^d][Ge]|[^f=B][Ge][^Fe][A^d]|\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nV: RH clef=treble\n[Ge][^G=B][EA][Ec]|[Ed][Ec][A=B][^GB]|[Ac][Ec][Dc][G=B]|[Ec][GA][G=B][^FA]|[=B,G][D^G][^CA][CA]|[DA][DF][DE][^CE]|[DF][FA][FG][EG]|\nV: LH clef=bass\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nV: RH clef=treble\n[FA][Dc][Ec][D=B]|[Ec][Ec][^Fc][G=B]|[Dc][D=B][GA][^FA]|[=B,G][D^G][^CA][DF]|[DE][DE][DF][^CE]|\nV: LH clef=bass\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nV: RH clef=treble\n[DF][FA][FG][EG]|[FA][Gc][Ac][FA]|[FG][FG][FA][EG]|[FA][Fc][FG][FG]|[EG][FA][G][E]|[A,F]2!fermata!z2|]\nV: LH clef=bass\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F,2!fermata!z2|]`; 
-        ABCJS.renderAbc("hint1-content", abc, {
-          staffwidth: 400,scale: 0.4});
+        //ABCJS.renderAbc("hint1-content", abc, {
+        //  staffwidth: 400,scale: 0.4});
+        $('#hint1-content').html('<img src="../imgs/hint1-1.png" alt="Exercise 1 Hint 1" class="img-fluid">');
+        $('#hint2-content').html('<img src="../imgs/hint1-2.png" alt="Exercise 1 Hint 2" class="img-fluid">');
+        $('#hint3-content').html('<img src="../imgs/hint1-3.png" alt="Exercise 1 Hint 3" class="img-fluid">');
         break;
       case "exercise2":
         var abc = `M: 4/4\n`;
         abc+=`L: 1/8\nK: C\nV: RH clef=treble\nz4zcdc|c2_B2zded|d2c2zefe|dc_BA GGg2||\nV: LH clef=bass\nL:1/4\nF,F,A,A,|G,G,_B,_B,|A,A,CC|_B,/A,/G,/F,/E,E,||`;
         ABCJS.renderAbc("hint1-content", abc, {
           staffwidth: 400,scale: 0.4});
+        
         break;
     }
 }

@@ -33,12 +33,12 @@ let questions = [
     {
         img: 'M: 4/4\nL: 1/2\nK: Bb\n"6#\\n3"[G]|',
         question: "What notes is this chord?",
-        options: ["G B D", "G Bb Eb", "G B D", "Gb Bb Eb"],
-        answer: "G Bb Eb"
+        options: ["G B D", "G Bb E", "G B D", "G Bb Eb"],
+        answer: "G Bb E"
     },
     {
-        img: 'M: 4/4\nL: 1/2\nK: E\n[^GBe]|',
-        question: 'What number is this root?',
+        img: 'M: 4/4\nL: 1/2\nK: E\nV:RH\n[GBe]|\nV:LH clef=bass\nG,',
+        question: 'Which number notation is correct?',
         options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
         answer: "8 3 6"
     }
