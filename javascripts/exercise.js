@@ -121,25 +121,28 @@ function changeInput(midiAccess){
     };
   });
 }
+function updateExercise3(){
+  var abc =`M: 4/4\nL: 1/4\nK: F\nV: LH clef=bass\n`;
+  abc +=`C,2C2A,2B,2|G,2A,2F,2G,2|E,C,(C2C2)B,G,|D,8|G,2_B,B, A,A, G,G,|F,F, D,D, A,,4|D,2DD _B,B, CC|\nA,A,_B,B, G,G,A,A,|F,D, DC =B,B, G,G,|CC, CB, A,A, B,A,|G,G,A,G, F,D,G,F,|\nE,C,CC F,G,A,F,|G,F,E,C, B,,B,,C,C,|G,2G,2G,2G,2|C,4!fermata!z4|]`;
+}
 function updateExercise(name){
   var abc =`M: 4/4\n`;
   switch (name){
     case "exercise1":
-      $('#hintbtn')
+      $('#hintbtn').show();
       .attr('data-target', '#modalContactForm') // 清除模態框觸發
       .attr('onclick', 'openHint()'); // 改變按鈕的點擊事件
       abc+=`L: 1/4\nK: F\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F2!fermata!z2|]`;
       break;
     case "exercise2":
-      $('#hintbtn')
-      .attr('data-target', '#modalContactForm') // 清除模態框觸發
-      .attr('onclick', 'openHint()'); // 改變按鈕的點擊事件
+      $('#hintbtn').show();
       abc+=`L: 1/4\nK: C\nV: LH clef=bass\nF,F,A,A,|G,G,_B,_B,|A,A,CC|_B,/A,/G,/F,/E,E,|A,/G,/F,/E,/D,D,|G,/F,/E,/D,/C,C,|F,/G,/A,/F,/G,G,,|\nC,C,E,E,|D,D,F,F,|E,E,G,G,|F,F,A,A,|G,/=B,/C/F,/G,G,,|C,z/E,/ F,/F,,/z/ ^F,/|G,/G,,/z/ ^G,/ A,/A,,/ z/ A,/|\n^G,/E,/ z/ G,/ A,/A,,/ z/ G,/|A,/A,,/ z/ C,/ D,/E,/F,/D,/|E,E,,A,,z/A,/|^F,z/D,/G,z/G,/|E,z/C,/F,F,|A,A,G,G,|_B,B,A,A,|\nCC_B,B,|DDC/_B,/A,/B,/|CC,F,/F,,/z/ F,/|E,/C,/ z/E,/ F,/F,,/z/ F,/|E,/C,/z/ E,/ F,/G,/A,/_B,/|CC,!fermata!F,2|]`
       break;
     case "exercise3":
-      $('#hintbtn')
-      .attr('data-target', '') // 清除模態框觸發
-      .attr('onclick', 'updateExercise3()'); // 改變按鈕的點擊事件
+      $('#hintbtn').hide();
+      var abc =``;
+      abc +=`M: 4/4\nL: 1/4\nK: F\nV: LH clef=bass\nC,2C2A,2B,2|G,2A,2F,2G,2|E,C,(C2C2)B,G,|D,8|G,2_B,B, A,A, G,G,|F,F, D,D, A,,4|D,2DD _B,B, CC|\nA,A,_B,B, G,G,A,A,|F,D, DC =B,B, G,G,|CC, CB, A,A, B,A,|G,G,A,G, F,D,G,F,|\nE,C,CC F,G,A,F,|G,F,E,C, B,,B,,C,C,|G,2G,2G,2G,2|C,4!fermata!z4|]`;
+
   }
   console.log(abc);
   ABCJS.renderAbc("paper", abc, {
