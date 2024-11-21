@@ -130,8 +130,6 @@ function updateExercise(name){
   switch (name){
     case "exercise1":
       $('#hintbtn').show();
-      .attr('data-target', '#modalContactForm') // 清除模態框觸發
-      .attr('onclick', 'openHint()'); // 改變按鈕的點擊事件
       abc+=`L: 1/4\nK: F\nV: LH clef=bass\nF,F,E,F,|B,B,CC,|F,=B,,C,B,,|C,E,F,G,|C,CA,=B,|E,G,^F,E,|^D,E,A,=B,|\nE,E/D/CA,|^G,A,D,E,|A,A,^F,G,|CCDD,|G,_B,A,G,|F,D,G,A,|D,D=B,C|\nF,F,G,G,,|C,CA,G,|^F,G,DD,|G,_B,A,D,|G,G,A,A,,|\nD,D=B,C/_B,/|A,E,F,A,|B,B,CC,|F,A,B,=B,|C4|F2!fermata!z2|]`;
       break;
     case "exercise2":
