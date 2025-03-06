@@ -2,6 +2,9 @@
 
 var soundEnabled = true;
 var ismousedown = false;
+const audioCache = {};
+const minKey = 21;
+const maxKey = 108;
 $(document).ready(function() {
     //產生琴鍵
     var kbs = '';
@@ -33,6 +36,14 @@ $(document).ready(function() {
     });
 });
 
+
+// 預先載入所有音檔
+for (let key = minKey; key <= maxKey; key++) {
+    const audio = new Audio(`../88-keys/${key}.wav`);
+    audio.volume = 0.6;
+    audioCache[key] = audio;
+}
+
 function mute(){
     soundEnabled = !soundEnabled; // 切换声音状态
     var soundIcon = document.getElementById('mute');
@@ -44,9 +55,10 @@ function mute(){
 }
 
 function fadeOutAudio(audio, duration) {
-    const fadeSteps = 200; // 将淡出分为100步
-    const fadeInterval = duration / fadeSteps; // 每步间隔时间
-    const fadeStep = audio.volume / fadeSteps; // 每步减少的音量
+    if (!audio) return;
+    const fadeSteps = 50; // 更少的步驟，確保淡出更平滑
+    const fadeInterval = duration / fadeSteps; 
+    const fadeStep = audio.volume / fadeSteps; 
 
     let currentStep = 0;
 
@@ -55,9 +67,10 @@ function fadeOutAudio(audio, duration) {
             audio.volume = Math.max(0, audio.volume - fadeStep);
             currentStep++;
         } else {
-            clearInterval(fadeOut); // 清除定时器
-            audio.pause(); // 暂停音频
-            audio.currentTime = 0; // 重置播放时间
+            clearInterval(fadeOut);
+            audio.pause();
+            audio.currentTime = 0;
+            audio.volume = 0.6; // 重置音量，避免下一次播放時太小聲
         }
     }, fadeInterval);
 }
@@ -67,13 +80,10 @@ function playNote(senderDiv) {
     var key = parseInt(senderDiv.id.substring(3));
     $(`#${senderDiv.id}`).css('backgroundColor','blue');
     if (soundEnabled){
-    if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
-            currentAudio = new Audio(`../88-keys/${key}.wav`);
-            currentAudio.volume = 0.6;
-            currentAudio.play();
+      if (soundEnabled && audioCache[key]) {
+        let audio = audioCache[key];
+        audio.currentTime = 0;  // 確保從頭播放
+        audio.play();
     }
     
     //document.getElementById(senderDiv.id).style.backgroundColor = "blue";
@@ -87,7 +97,7 @@ function playNote(senderDiv) {
         console.log("Cannot read MIDI Output.");
     }
     console.log(keys)
-}
+}}
 
 function stopNote(senderDiv) { 
     ismousedown = false;
@@ -121,20 +131,19 @@ function playNoteMIDI(notenum) {
     var key = parseInt(notenum);
     keys.push(key);
     $(`#key${key}`).css('backgroundColor','blue');
+    
+    // 發送 MIDI 訊號
     var noteOnMsg = [0x90, key, 96];
     currentOutput.send(noteOnMsg);
     console.log(keys);
-    if (soundEnabled){
-    if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
-            currentAudio = new Audio(`../88-keys/${key}.wav`);
-            currentAudio.volume = 0.6;
-            currentAudio.play();
-    }
-  }
 
+    if (soundEnabled && audioCache[key]) {
+      let audio = audioCache[key];
+      audio.currentTime = 0;  // 確保從頭播放
+      audio.play();
+  }
+  }
+/*
   function stopNoteMIDI(notenum) { 
     try{
     if (twoarray()) {
@@ -179,7 +188,7 @@ function playNoteMIDI(notenum) {
         document.getElementById(keys[i]).style.backgroundColor = "ivory";
         document.getElementById(keys[i]).querySelector('.number').textContent = '';
       }
-    }*/
+    }
     const index = keys.indexOf(notenum);
     if (index > -1) { // only splice array when item is found
       keys.splice(index, 1); // 2nd parameter means remove one item only
@@ -187,44 +196,46 @@ function playNoteMIDI(notenum) {
     console.log(keys);
   }
 
-
+*/
 function stopNoteMIDI(notenum) { 
-    try{
-    if (twoarray()) {
-      if (dataindex <7) dataindex++;
-      else dataindex=0;
-      playexam(dataglobal , dataindex);
-    }
-    }catch{}
-  
-    var key = notenum;
-    var noteOffMsg = [0x80, key, 0];
-    currentOutput.send(noteOffMsg);
-  
-    try{
-        if (!twoarray()&& nowexam.includes(key)) {
-          $(`#key${key}`).css('background','red');
-        //document.getElementById(`key${key}`).style.backgroundColor = "red";
-        } 
-        else if (isblackkey(key)) {
-          $(`#key${key}`).css('background','black');
-            //document.getElementById(`key${key}`).style.backgroundColor = "black";
-        } else {
-          $(`#key${key}`).css('background','ivory');
-            //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-        }
-      }catch(error){
-        if (isblackkey(key)) {
-          $(`#key${key}`).css('background','black');
-            //document.getElementById(`key${key}`).style.backgroundColor = "black";
-        } else {
-          $(`#key${key}`).css('background','ivory');
-            //document.getElementById(`key${key}`).style.backgroundColor = "ivory";
-        }
-        }
-    const index = keys.indexOf(notenum);
-    if (index > -1) { // only splice array when item is found
-      keys.splice(index, 1); // 2nd parameter means remove one item only
-    }
-    console.log(keys);
+  try {
+      if (twoarray()) {
+          if (dataindex < 7) dataindex++;
+          else dataindex = 0;
+          playexam(dataglobal, dataindex);
+      }
+  } catch {}
+
+  var key = notenum;
+  var noteOffMsg = [0x80, key, 0];
+  currentOutput.send(noteOffMsg);
+
+  try {
+      if (!twoarray() && nowexam.includes(key)) {
+          $(`#key${key}`).css('background', 'red');
+      } else if (isblackkey(key)) {
+          $(`#key${key}`).css('background', 'black');
+      } else {
+          $(`#key${key}`).css('background', 'ivory');
+      }
+  } catch (error) {
+      if (isblackkey(key)) {
+          $(`#key${key}`).css('background', 'black');
+      } else {
+          $(`#key${key}`).css('background', 'ivory');
+      }
   }
+
+  // **加入淡出音效**
+  if (audioCache[key]) {
+      fadeOutAudio(audioCache[key], 500); // 500 毫秒內淡出
+  }
+
+  // **從 keys 陣列移除該音符**
+  const index = keys.indexOf(notenum);
+  if (index > -1) {
+      keys.splice(index, 1);
+  }
+
+  console.log(keys);
+}

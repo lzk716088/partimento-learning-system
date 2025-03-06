@@ -28,19 +28,36 @@ let questions = [
         img: 'M: 4/4\nL: 1/2\nK: G\n"6\\n3"[C]|',
         question: "What notes is this chord?",
         options: ["D E G", "C E G", "C E A", "C D G"],
-        answer: "C E A"
+        answer: "C E A",
+        midiNumbers:[60,64,69]
     },
     {
         img: 'M: 4/4\nL: 1/2\nK: Bb\n"6#\\n3"[G]|',
         question: "What notes is this chord?",
         options: ["G B D", "G Bb E", "G B D", "G Bb Eb"],
-        answer: "G Bb E"
+        answer: "G Bb E",
+        midiNumbers:[67,70,76]
+    },
+    {
+        img: 'M: 4/4\nL: 1/2\nK: D\n"5\\n3"[^F]|',
+        question: "What notes is this chord?",
+        options: ["F# A D", "F# A C#", "F# A# C#", "F# A# D"],
+        answer: "F# A D",
+        midiNumbers:[66,69,74]
+    },
+    {
+        img: 'M: 4/4\nL: 1/2\nK: Eb\n"6\\n3"[_A]|',
+        question: "What notes is this chord?",
+        options: ["Ab B Eb", "Ab C Eb", "Ab C E", "Ab C F"],
+        answer: "Ab C F",
+        midiNumbers:[68,72,76]
     },
     {
         img: 'M: 4/4\nL: 1/2\nK: E\nV:RH\n[GBe]|\nV:LH clef=bass\nG,',
         question: 'Which number notation is correct?',
         options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
-        answer: "8 3 6"
+        answer: "8 3 6",
+        midiNumbers:[64,67,76]
     }
 ];
 
@@ -153,6 +170,10 @@ function loadQuestion() {
                 $('.option-button').removeClass('active');
             }
         });
+        $('.play-button').on('click', function() {
+            let audioFiles = JSON.parse($(this).data('audio')); // 取得音檔陣列
+            playChord(audioFiles);
+        });
 
         $('#quiz-area').show(); // 顯示題目區域
 }
@@ -161,4 +182,14 @@ function loadQuestion() {
 function updateProgress() {
     let progress = (currentQuestionIndex / questions.length) * 100;
     $('#progress-bar').css('width', progress + '%');
+}
+
+function playChord() {
+    MD = questions[currentQuestionIndex].midiNumbers;
+    let audioFiles = MD.map(num => `../88-keys/${num}.wav`);
+    audioFiles.forEach(audioSrc => {
+        let audio = new Audio(audioSrc);
+        audio.volume = 0.6;
+        audio.play();
+    });
 }
