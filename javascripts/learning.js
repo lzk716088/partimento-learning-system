@@ -153,6 +153,7 @@ function loadQuestion() {
                 } else {
                     $('#answer-area').empty();
                     $('#quiz-img').empty();
+                    $('#playsound').empty();
                     $('#question-area').text(`你已完成 ${questions.length} 道題目，答對了 ${correctAnswers} 題！`);
                     $('#answer-area').append(`
                         <button class="btn btn-secondary option-button text-center" onClick="reloadquiz()">重新測驗</button><br/><br/>
