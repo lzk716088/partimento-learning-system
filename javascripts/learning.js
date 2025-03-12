@@ -46,14 +46,42 @@ let questions = [
         midiNumbers:[66,69,74]
     },
     {
+        img: 'M: 4/4\nL: 1/2\nK: E\n"5\\n3"[^G]|',
+        question: "What notes is this chord?",
+        options: ["A C# E", "A C F", "A C# F#", "A C F#"],
+        answer: "A C# F#",
+        midiNumbers:[69,73,78]
+    },
+    {
+        img: 'M: 4/4\nL: 1/2\nK: A\n"5\\n3"[]|',
+        question: "What notes is this chord?",
+        options: ["G# B D#", "G# C E", "G# B E", "G# C D#"],
+        answer: "G# B E",
+        midiNumbers:[66,71,76]
+    },
+    {
         img: 'M: 4/4\nL: 1/2\nK: Eb\n"6\\n3"[_A]|',
         question: "What notes is this chord?",
         options: ["Ab B Eb", "Ab C Eb", "Ab C E", "Ab C F"],
         answer: "Ab C F",
-        midiNumbers:[68,72,76]
+        midiNumbers:[68,72,77]
+    },
+    {
+        img: 'M: 4/4\nL: 1/2\nK: Ab\n"6\\n3"[_D]|',
+        question: "What notes is this chord?",
+        options: ["Db F A", "Db Fb A", "Db Fb Bb", "Db F Bb"],
+        answer: "Db F Bb",
+        midiNumbers:[61,65,70]
     },
     {
         img: 'M: 4/4\nL: 1/2\nK: E\nV:RH\n[GBe]|\nV:LH clef=bass\nG,',
+        question: 'Which number notation is correct?',
+        options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
+        answer: "8 3 6",
+        midiNumbers:[64,67,76]
+    },
+    {
+        img: 'M: 4/4\nL: 1/2\nK: F\nV:RH\n[G_Be]|\nV:LH clef=bass\nG,',
         question: 'Which number notation is correct?',
         options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
         answer: "8 3 6",
