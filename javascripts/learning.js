@@ -39,25 +39,18 @@ let questions = [
         midiNumbers:[67,70,76]
     },
     {
-        img: 'M: 4/4\nL: 1/2\nK: D\n"5\\n3"[^F]|',
+        img: 'M: 4/4\nL: 1/2\nK: D\n"6\\n3"[^F]|',
         question: "What notes is this chord?",
         options: ["F# A D", "F# A C#", "F# A# C#", "F# A# D"],
         answer: "F# A D",
         midiNumbers:[66,69,74]
     },
     {
-        img: 'M: 4/4\nL: 1/2\nK: E\n"5\\n3"[^G]|',
+        img: 'M: 4/4\nL: 1/2\nK: A\n"6\\n3"[^G]|',
         question: "What notes is this chord?",
-        options: ["A C# E", "A C F", "A C# F#", "A C F#"],
-        answer: "A C# F#",
-        midiNumbers:[69,73,78]
-    },
-    {
-        img: 'M: 4/4\nL: 1/2\nK: A\n"5\\n3"[]|',
-        question: "What notes is this chord?",
-        options: ["G# B D#", "G# C E", "G# B E", "G# C D#"],
+        options: ["G# C E", "G# B D#", "G# B E", "G# C D#"],
         answer: "G# B E",
-        midiNumbers:[66,71,76]
+        midiNumbers:[68,71,76]
     },
     {
         img: 'M: 4/4\nL: 1/2\nK: Eb\n"6\\n3"[_A]|',
@@ -74,18 +67,32 @@ let questions = [
         midiNumbers:[61,65,70]
     },
     {
+        img: 'M: 4/4\nL: 1/2\nK: F\n"6\\n3"[_B]|',
+        question: "What notes is this chord?",
+        options: ["Bb Db F", "Bb D F", "Bb Db G", "Bb D G"],
+        answer: "Bb D G",
+        midiNumbers:[58,62,67]
+    },
+    {
+        img: 'M: 4/4\nL: 1/2\nK: F\n"6#\\n3"[_D]|',
+        question: "What notes is this chord?",
+        options: ["Db Eb Bb", "Db E Bb", "Db Eb A", "Db E A"],
+        answer: "Db E Bb",
+        midiNumbers:[61,64,70]
+    },
+    {
         img: 'M: 4/4\nL: 1/2\nK: E\nV:RH\n[GBe]|\nV:LH clef=bass\nG,',
         question: 'Which number notation is correct?',
         options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
         answer: "8 3 6",
-        midiNumbers:[64,67,76]
+        midiNumbers:[55,67,71,76]
     },
     {
-        img: 'M: 4/4\nL: 1/2\nK: F\nV:RH\n[G_Be]|\nV:LH clef=bass\nG,',
+        img: 'M: 4/4\nL: 1/2\nK: D\nV:RH\n[D^GB]|\nV:LH clef=bass\nB,,',
         question: 'Which number notation is correct?',
-        options: ["8 3 5", "3 6 8", "8 3 6", "3 5 8"],
-        answer: "8 3 6",
-        midiNumbers:[64,67,76]
+        options: ["8 3 6#", "3 8 6#", "8 3 6#", "3 6 8"],
+        answer: "3 8 6#",
+        midiNumbers:[47,62,68,71]
     }
 ];
 
