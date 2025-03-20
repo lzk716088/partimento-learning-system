@@ -13,36 +13,36 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <title>Learning - Partimento Learning System</title>
+    <title>學習 - Partimento 學習系統</title>
 </head>
 <body>
     <div id="menu-holder" role="button" tabindex="0" class="collapsed " aria-label="開啟導覽列">
         <svg id ="menuicon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px" fill="#5f6368"><rect fill="none" height="20" width="20"/><g>
             <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></g></svg>
-        <span id="app-name">Learning</span>
+        <span id="app-name">學習</span>
     </div>
     <script type="text/javascript">
         document.getElementById('menu-holder').addEventListener('click', function() {
-        window.location.href = '../index.html';
+        window.location.href = '../index-zh.html';
     });
     </script>
     <div class="center-container">
         <div class="radio-input">
             <label>
                 <input value="Documents" name="value-radio" id="option1" type="radio" />
-                <span>Documents</span>
+                <span>文件</span>
             </label>
             <label>
                 <input value="Quiz" name="value-radio" id="option2" type="radio" />
-                <span>Quiz</span>
+                <span>測驗</span>
             </label>
             <span class="selection" ></span>
         </div>
     </div>
     <div class="container">
-    <div id="teaching-text" style="display: none;" >
+    <div id="teaching-text" style="display: block;" >
         <form style='height: 80vh;'>
-        <iframe src="document.html"
+        <iframe src="document-zh.html"
             frameborder="0"
             width="100%"
             sandbox="allow-modals allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts">

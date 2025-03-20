@@ -1,47 +1,52 @@
 #menu-holder {
-    position: relative;
-    padding: 20px;
-    width: 200px;
-    display: flex;
-    cursor: pointer;
-    border-radius: 0 10px 10px 10px;
-    background: var(--menu-holder-closed-background, #fff);
-    box-shadow: var(--menu-holder-closed-box-shadow, 0 2px 5px rgba(0, 0,0, 0.3));
+  position: relative;
+  padding: 20px;
+  align-items: center; /* 確保內容垂直置中 */
+  width: 200px; /* 讓寬度依據內容自適應 */
+  display: flex;
+  cursor: pointer;
+  border-radius: 0 10px 10px 10px;
+  background: var(--menu-holder-closed-background, #fff);
+  box-shadow: var(--menu-holder-closed-box-shadow, 0 2px 5px rgba(0, 0,0, 0.3));
 }
 
 #menu-holder:focus {
-    outline: 0;
+  outline: 0;
 }
+#menuicon {
+  height: 36px;
+  width: 36px; /* 確保 SVG 圖標不縮小 */
+}
+#menu-holder:focus:after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  border: 2px solid #8AB4F8;
+  z-index: 1;
+  margin-top: 0px;
+}
+#app-name {
+
+          font-family: 'BoingSemiBold', Helvetica, Arial, sans-serif;
+          font-size: 24px;
+          line-height: 28px;
+          font-weight: 100%;
+          color: black;
+          margin-left: 20px;
+          font-weight: bold;
+          margin-top: 10px;
+          opacity:var(--app-name-closed-opacity, 1);
+      }
 iframe {
     border: none;  /* 移除邊框 */
     width: 100%;   /* 寬度設定為 100% */
     height: 100%;  /* 高度設定為 100% */
     display: block; /* 確保沒有空白區域 */
 }
-#menu-holder:focus:after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    height: 100%;
-    width: 100%;
-    border-radius: inherit;
-    border: 2px solid #8AB4F8;
-    z-index: 1;
-    margin-top: 0px;
-}
-#app-name {
-
-            font-family: 'BoingSemiBold', Helvetica, Arial, sans-serif;
-            font-size: 24px;
-            line-height: 28px;
-            font-weight: 500;
-            color: black;
-            margin-left: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-            opacity:var(--app-name-closed-opacity, 1);
-        }
 .center-container {
     height: 0vh; /* 全螢幕高度 */
     display: flex;
@@ -88,6 +93,7 @@ iframe {
     width: var(--container_width);
     overflow: hidden;
     border: 1px solid rgba(53, 52, 52, 0.226);
+    
   }
   
   .radio-input label {
@@ -122,7 +128,7 @@ iframe {
     background-color: rgb(11 117 223);
     display: inline-block;
   }
-  
+
   .radio-input label:nth-child(1):has(input:checked) ~ .selection {
     transform: translateX(calc(var(--container_width) * 0 / 2));
   }

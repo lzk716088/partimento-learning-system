@@ -1,6 +1,6 @@
 let currentQuestionIndex = 0;
 let correctAnswers = 0;
-
+$('#teaching-text').show();
 $('input[name="value-radio"]').change(function () {
     console.log($(this).val());
     if ($(this).val() == 'Documents') {

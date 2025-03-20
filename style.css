@@ -247,4 +247,38 @@ z-index: 2;
 div.black_key:hover {
     box-shadow: 0px 2px 9px rgba(0,0,0,0.30);
 }
+
+/* From Uiverse.io by TCdesign-dev */ 
+.lanSwitch {
+    margin-left: auto;
+    display: flex; /* 讓它可以在 flexbox 內對齊 */
+    align-items: center; /* 保持內容垂直居中 */
+    justify-content: center; /* 讓文字在按鈕內居中 */
+    display: inline-block;
+    border-radius: 7px;
+    border: none;
+    background: #1875FF;
+    color: white;
+    font-family: inherit;
+    text-align: center;
+    font-size: 13px;
     
+    width: 10em;
+    padding: 1em;
+    transition: all 0.4s;
+    cursor: pointer;
+   }
+   
+   .lanSwitch span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.4s;
+   }
+   
+   .lanSwitch:hover {
+    opacity: 4;
+    right: 0;
+    transform: translate(-1px, -1px);
+    box-shadow: 0px 14px 56px -11px #1875FF;
+   }

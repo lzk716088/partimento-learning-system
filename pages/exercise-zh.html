@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/reset.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/play.css">
+  <title>實踐 - Partimento 學習系統</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <script src="https://img1.ccgxk.com/ccgxk-oss/js/abc.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <style>
+    #paper {
+    max-height: 600px;      /* 設置最大高度為 400px */
+    overflow-y: auto;       /* 超出時顯示垂直滾動條 */
+    border: 1px solid #ccc; /* 可選的邊框 */
+    padding: 10px;
+    position: relative;
+}
+#hint {
+    overflow-y: auto;       /* 超出時顯示垂直滾動條 */
+    border: 1px solid #ccc; /* 可選的邊框 */
+    padding: 10px;
+    max-width: 600px;
+    position: relative;
+    background-color: #ccc;
+    color: black;
+}
+#hint svg {
+    pointer-events: none; /* 禁用指標事件，移除放大效果 */
+}
+svg.abcjs {
+    height: auto !important;  /* 強制讓 SVG 高度自動調整 */
+    max-height: 100%;         /* 限制 SVG 不超過容器 */
+    width: 100%;              /* 設置寬度佔滿 */
+}
+  </style>
+
+</head>
+
+<body onload="startMIDI()">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <div id="menu-holder" role="button" tabindex="0" class="collapsed " aria-label="開啟導覽列">
+                <svg id ="menuicon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px" fill="#5f6368"><rect fill="none" height="20" width="20"/><g>
+                    <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></g></svg>
+                <span id="app-name">實踐</span>
+  </div>
+  <script type="text/javascript">
+      document.getElementById('menu-holder').addEventListener('click', function() {
+      window.location.href = '../index-zh.html';
+  });
+  </script>
+  <script src="../javascripts/exercise.js"></script>
+  <div >
+    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content bg-dark text-white">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">提示</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="text-white">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body mx-3">
+              <!--<label class="text-white text-center">Exercise1</label>-->
+              <!-- 分頁導航 -->
+              <ul class="nav nav-tabs" id="hintTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="exercise1-tab" data-toggle="tab" href="#hint1-content" role="tab"
+                        aria-controls="exercise1-content" aria-selected="true">提示 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="exercise2-tab" data-toggle="tab" href="#hint2-content" role="tab"
+                        aria-controls="exercise2-content" aria-selected="false">提示 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="exercise3-tab" data-toggle="tab" href="#hint3-content" role="tab"
+                        aria-controls="exercise3-content" aria-selected="false">提示 3</a>
+                </li>
+              </ul>
+              <!-- 分頁內容 -->
+              <div class="tab-content" id="hintTabContent">
+                <div class="tab-pane fade show active" id="hint1-content" role="tabpanel" aria-labelledby="exercise1-tab">
+                  <!--Exricise hint 1-->
+                </div>
+                <div class="tab-pane fade" id="hint2-content" role="tabpanel" aria-labelledby="exercise2-tab">
+                    <!--Exricise hint 2-->
+                </div>
+                <div class="tab-pane fade" id="hint3-content" role="tabpanel" aria-labelledby="exercise3-tab">
+                    <!--Exricise hint 3-->
+                </div>
+              </div>
+              <!--<div id="hint"></div>-->
+            </div>
+            <div class="modal-footer d-flex justify-content-center ">
+              <!-- <i class="fas fa-paper-plane-o ml-1"></i> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+      </div>
+  </div>
+
+
+  <div id ="block-holder">
+  <p id="log_string" style="display:none"></p>
+  <div id ="projects-holder" class="button-container">
+        <div id="main-project" tabindex="0" class="project-wrap">
+            <h3 for="chooseOutput">MIDI 輸入</h3><br/>
+              <select id="midi-inputs" class="Selector1">
+                <option value="" >選擇 MIDI 輸入</option><br/>
+              </select>
+        </div>
+        <div id="main-project"  tabindex="0" class="project-wrap">
+          <h3 for="chooseOutput">MIDI 輸出</h3><br/>
+          <select id="chooseOutput" onchange="changeOutput(value) " class="Selector2">
+          <option>無</option>
+          </select>
+        </div>
+    </div>
+  <hr>
+  <div id="exercisemode" style="display: block;">
+    <select id="exerciseSelect">
+      <option value="exercise1">譜面 1</option>
+      <option value="exercise2">譜面 2</option>
+      <option value="exercise3">譜面 3</option>
+    </select>
+    <!--button id="showexercise">Show</button-->
+    <button href="" id="hintbtn" class="btn btn-secondary option-button text-center" data-toggle="modal" data-target="#modalContactForm" onclick="openHint()">提示</button>
+  </div>
+  <!--<button class="btn btn-secondary option-button text-center" id="toggle-answer" data-exercise="1">Show Answer</button><br/><br/>-->
+  
+  <script type="text/javascript">
+    $("#exerciseSelect").on("change",function(){
+    selectedE = $(this).val();
+    console.log(selectedE)
+    updateExercise(selectedE);
+    });
+  </script>
+  <!--ABC here-->
+  
+  <div id="paper" style="display:block"></div>
+  <pre id="jsonDataDisplay"></pre>
+  <!--PlayButton-->
+
+  <div class="playbutton" id ="mute" onclick="mute()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+    </div>
+
+  <!--Keyboard-->
+
+  <div class="keyboard" id="keyboardContainer"></div>
+  <script src="../javascripts/keyboard_setting.js"></script>
+  <div id="div_options"></div>
+</div>
+</body>
+</html>
